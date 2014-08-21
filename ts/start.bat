@@ -1,0 +1,1 @@
+java -jar target/rms-2.5.jar

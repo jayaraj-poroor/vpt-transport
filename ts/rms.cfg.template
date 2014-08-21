@@ -1,0 +1,14 @@
+server.port=443
+tunnel.port=5555
+server.ip=rms.shelloid.com
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://xxx:3306/soxnet
+jdbc.username=xxx
+jdbc.password=xxx
+redis.host=xxx
+redis.port=6379
+redis.password=xxx
+cert.chainFile=xxx
+cert.keyFile=xxx
+addon.className=com.shelloid.vpt.enterprise.impl.TunnelHandler
+addon.jarName=ts-addon.jar
