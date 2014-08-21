@@ -1,1 +1,1 @@
-nohup java -jar rms-2.0.jar >/home/ubuntu/rms/rms.log 2>&1 &
+nohup java -jar rms-2.0.jar > log/rms.log 2>&1 &
