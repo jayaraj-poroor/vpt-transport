@@ -12,3 +12,5 @@ cert.chainFile=xxx
 cert.keyFile=xxx
 addon.className=com.shelloid.vpt.enterprise.impl.TunnelHandler
 addon.jarName=ts-addon.jar
+cert.chainFile=shelloid.com.server-chain
+cert.keyFile=shelloid.com.pkcs8
