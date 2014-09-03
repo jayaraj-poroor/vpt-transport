@@ -5,7 +5,7 @@ option java_outer_classname = "ShelloidMessageModel";
 message ShelloidMessage {	
 	required 			MessageTypes	type = 1;
 	optional 			MessageTypes 	subType = 2;
-	optional 			string 			device_id = 3;
+	optional 			int64 			device_id = 3;
 	optional 			int64 			seqNum = 4;
 	optional 			string 			msg = 5;
 	optional 			string 			key = 6;
@@ -37,6 +37,7 @@ enum MessageTypes {
 	ACK = 2;
 	ERROR = 3;
 	NAUTH = 4;
+	NODEMSG = 5;
 	URGENT = 8;
 	TUNNEL = 18;
 	TUNNEL_FORWARD = 19;

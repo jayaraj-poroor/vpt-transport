@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.util.Properties;
 import org.shelloid.common.DeferredRedisTransaction;
 import org.shelloid.common.exceptions.ShelloidNonRetriableException;
-import org.shelloid.common.messages.ShelloidMessage;
+import org.shelloid.common.messages.ShelloidMessageModel.*;
 import org.shelloid.vpt.rms.ConnectionMetadata;
 import redis.clients.jedis.Jedis;
 
@@ -22,10 +22,10 @@ import redis.clients.jedis.Jedis;
  */
 public interface ShelloidMX {
     public void init(Properties props) throws ShelloidNonRetriableException;
-    public void onAgentAuth(ConnectionMetadata cm, String devId, String serverIp) throws ShelloidNonRetriableException;
+    public void onAgentAuth(ConnectionMetadata cm, long devId, String serverIp) throws ShelloidNonRetriableException;
     public void onAgentDisconnect(ConnectionMetadata cm) throws ShelloidNonRetriableException;
-    public void onClosePortMap(Connection conn, String portMapId) throws ShelloidNonRetriableException;
-    public void onOpenPortMap(Connection conn, String portMapId) throws ShelloidNonRetriableException;
-    public void onAgentTunnelMsg (ConnectionMetadata cm, ConnectionMetadata remoteCm, String remoteDevId, ShelloidMessage msg, String retries, Jedis jedis) throws ShelloidNonRetriableException;
-    public void onGeneratedReliableMsg(ConnectionMetadata cm, ConnectionMetadata remoteCm,  String deviceId, ShelloidMessage msg, Jedis jedis, DeferredRedisTransaction tx) throws ShelloidNonRetriableException;
+    public void onClosePortMap(Connection conn, long portMapId) throws ShelloidNonRetriableException;
+    public void onOpenPortMap(Connection conn, long portMapId) throws ShelloidNonRetriableException;
+    public void onAgentTunnelMsg (ConnectionMetadata cm, ConnectionMetadata remoteCm, long remoteDevId, ShelloidMessage msg, int retries, Jedis jedis) throws ShelloidNonRetriableException;
+    public void onGeneratedReliableMsg(ConnectionMetadata cm, ConnectionMetadata remoteCm,  long deviceId, ShelloidMessage msg, Jedis jedis, DeferredRedisTransaction tx) throws ShelloidNonRetriableException;
 }

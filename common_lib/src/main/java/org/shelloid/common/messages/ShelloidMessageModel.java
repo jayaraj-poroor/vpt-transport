@@ -30,61 +30,65 @@ public final class ShelloidMessageModel {
      */
     NAUTH(3, 4),
     /**
+     * <code>NODEMSG = 5;</code>
+     */
+    NODEMSG(4, 5),
+    /**
      * <code>URGENT = 8;</code>
      */
-    URGENT(4, 8),
+    URGENT(5, 8),
     /**
      * <code>TUNNEL = 18;</code>
      */
-    TUNNEL(5, 18),
+    TUNNEL(6, 18),
     /**
      * <code>TUNNEL_FORWARD = 19;</code>
      */
-    TUNNEL_FORWARD(6, 19),
+    TUNNEL_FORWARD(7, 19),
     /**
      * <code>TUNNEL_FORWARD_ERROR = 20;</code>
      */
-    TUNNEL_FORWARD_ERROR(7, 20),
+    TUNNEL_FORWARD_ERROR(8, 20),
     /**
      * <code>START_LISTENING = 21;</code>
      */
-    START_LISTENING(8, 21),
+    START_LISTENING(9, 21),
     /**
      * <code>OPEN_PORT = 22;</code>
      */
-    OPEN_PORT(9, 22),
+    OPEN_PORT(10, 22),
     /**
      * <code>CLOSE_PORT = 23;</code>
      */
-    CLOSE_PORT(10, 23),
+    CLOSE_PORT(11, 23),
     /**
      * <code>STOP_LISTEN = 24;</code>
      */
-    STOP_LISTEN(11, 24),
+    STOP_LISTEN(12, 24),
     /**
      * <code>PORT_OPENED = 25;</code>
      */
-    PORT_OPENED(12, 25),
+    PORT_OPENED(13, 25),
     /**
      * <code>LISTENING_STARTED = 26;</code>
      */
-    LISTENING_STARTED(13, 26),
+    LISTENING_STARTED(14, 26),
     /**
      * <code>LISTENING_STOPPED = 27;</code>
      */
-    LISTENING_STOPPED(14, 27),
+    LISTENING_STOPPED(15, 27),
     /**
      * <code>PORT_CLOSED = 28;</code>
      */
-    PORT_CLOSED(15, 28),
+    PORT_CLOSED(16, 28),
     /**
      * <code>DEVICE_MAPPINGS = 29;</code>
      */
-    DEVICE_MAPPINGS(16, 29),
+    DEVICE_MAPPINGS(17, 29),
     /**
      * <code>NO_ROUTE = 30;</code>
      */
-    NO_ROUTE(17, 30),
+    NO_ROUTE(18, 30),
     ;
 
     /**
@@ -103,6 +107,10 @@ public final class ShelloidMessageModel {
      * <code>NAUTH = 4;</code>
      */
     public static final int NAUTH_VALUE = 4;
+    /**
+     * <code>NODEMSG = 5;</code>
+     */
+    public static final int NODEMSG_VALUE = 5;
     /**
      * <code>URGENT = 8;</code>
      */
@@ -169,6 +177,7 @@ public final class ShelloidMessageModel {
         case 2: return ACK;
         case 3: return ERROR;
         case 4: return NAUTH;
+        case 5: return NODEMSG;
         case 8: return URGENT;
         case 18: return TUNNEL;
         case 19: return TUNNEL_FORWARD;
@@ -257,20 +266,15 @@ public final class ShelloidMessageModel {
      */
     org.shelloid.common.messages.ShelloidMessageModel.MessageTypes getSubType();
 
-    // optional string device_id = 3;
+    // optional int64 device_id = 3;
     /**
-     * <code>optional string device_id = 3;</code>
+     * <code>optional int64 device_id = 3;</code>
      */
     boolean hasDeviceId();
     /**
-     * <code>optional string device_id = 3;</code>
+     * <code>optional int64 device_id = 3;</code>
      */
-    java.lang.String getDeviceId();
-    /**
-     * <code>optional string device_id = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getDeviceIdBytes();
+    long getDeviceId();
 
     // optional int64 seqNum = 4;
     /**
@@ -655,9 +659,9 @@ public final class ShelloidMessageModel {
               }
               break;
             }
-            case 26: {
+            case 24: {
               bitField0_ |= 0x00000004;
-              deviceId_ = input.readBytes();
+              deviceId_ = input.readInt64();
               break;
             }
             case 32: {
@@ -870,47 +874,20 @@ public final class ShelloidMessageModel {
       return subType_;
     }
 
-    // optional string device_id = 3;
+    // optional int64 device_id = 3;
     public static final int DEVICE_ID_FIELD_NUMBER = 3;
-    private java.lang.Object deviceId_;
+    private long deviceId_;
     /**
-     * <code>optional string device_id = 3;</code>
+     * <code>optional int64 device_id = 3;</code>
      */
     public boolean hasDeviceId() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional string device_id = 3;</code>
+     * <code>optional int64 device_id = 3;</code>
      */
-    public java.lang.String getDeviceId() {
-      java.lang.Object ref = deviceId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          deviceId_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>optional string device_id = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getDeviceIdBytes() {
-      java.lang.Object ref = deviceId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        deviceId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public long getDeviceId() {
+      return deviceId_;
     }
 
     // optional int64 seqNum = 4;
@@ -1516,7 +1493,7 @@ public final class ShelloidMessageModel {
     private void initFields() {
       type_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.NEW_MSG;
       subType_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.NEW_MSG;
-      deviceId_ = "";
+      deviceId_ = 0L;
       seqNum_ = 0L;
       msg_ = "";
       key_ = "";
@@ -1577,7 +1554,7 @@ public final class ShelloidMessageModel {
         output.writeEnum(2, subType_.getNumber());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getDeviceIdBytes());
+        output.writeInt64(3, deviceId_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeInt64(4, seqNum_);
@@ -1670,7 +1647,7 @@ public final class ShelloidMessageModel {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getDeviceIdBytes());
+          .computeInt64Size(3, deviceId_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
@@ -1895,7 +1872,7 @@ public final class ShelloidMessageModel {
         bitField0_ = (bitField0_ & ~0x00000001);
         subType_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.NEW_MSG;
         bitField0_ = (bitField0_ & ~0x00000002);
-        deviceId_ = "";
+        deviceId_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
         seqNum_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -2124,9 +2101,7 @@ public final class ShelloidMessageModel {
           setSubType(other.getSubType());
         }
         if (other.hasDeviceId()) {
-          bitField0_ |= 0x00000004;
-          deviceId_ = other.deviceId_;
-          onChanged();
+          setDeviceId(other.getDeviceId());
         }
         if (other.hasSeqNum()) {
           setSeqNum(other.getSeqNum());
@@ -2380,76 +2355,35 @@ public final class ShelloidMessageModel {
         return this;
       }
 
-      // optional string device_id = 3;
-      private java.lang.Object deviceId_ = "";
+      // optional int64 device_id = 3;
+      private long deviceId_ ;
       /**
-       * <code>optional string device_id = 3;</code>
+       * <code>optional int64 device_id = 3;</code>
        */
       public boolean hasDeviceId() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional string device_id = 3;</code>
+       * <code>optional int64 device_id = 3;</code>
        */
-      public java.lang.String getDeviceId() {
-        java.lang.Object ref = deviceId_;
-        if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          deviceId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public long getDeviceId() {
+        return deviceId_;
       }
       /**
-       * <code>optional string device_id = 3;</code>
+       * <code>optional int64 device_id = 3;</code>
        */
-      public com.google.protobuf.ByteString
-          getDeviceIdBytes() {
-        java.lang.Object ref = deviceId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          deviceId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string device_id = 3;</code>
-       */
-      public Builder setDeviceId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
+      public Builder setDeviceId(long value) {
+        bitField0_ |= 0x00000004;
         deviceId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string device_id = 3;</code>
+       * <code>optional int64 device_id = 3;</code>
        */
       public Builder clearDeviceId() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        deviceId_ = getDefaultInstance().getDeviceId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string device_id = 3;</code>
-       */
-      public Builder setDeviceIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-        deviceId_ = value;
+        deviceId_ = 0L;
         onChanged();
         return this;
       }
@@ -4584,7 +4518,7 @@ public final class ShelloidMessageModel {
       "\n\rmessage.proto\022\007example\"\326\004\n\017ShelloidMes" +
       "sage\022#\n\004type\030\001 \002(\0162\025.example.MessageType" +
       "s\022&\n\007subType\030\002 \001(\0162\025.example.MessageType" +
-      "s\022\021\n\tdevice_id\030\003 \001(\t\022\016\n\006seqNum\030\004 \001(\003\022\013\n\003" +
+      "s\022\021\n\tdevice_id\030\003 \001(\003\022\016\n\006seqNum\030\004 \001(\003\022\013\n\003" +
       "msg\030\005 \001(\t\022\013\n\003key\030\006 \001(\t\022\016\n\006secret\030\007 \001(\t\022\r" +
       "\n\005users\030\t \003(\t\022\021\n\tportMapId\030\n \001(\003\022\021\n\tisSv" +
       "cSide\030\013 \001(\010\022\023\n\013remoteDevId\030\014 \001(\003\022\017\n\007retr" +
@@ -4598,16 +4532,16 @@ public final class ShelloidMessageModel {
       "n\030\031 \001(\t\022\030\n\020resetLastSendAck\030\032 \001(\010\022\016\n\006nod" +
       "eId\030\033 \001(\003\022\016\n\006action\030\034 \001(\t\"D\n\017PortMapping" +
       "Info\022\014\n\004port\030\001 \002(\005\022\021\n\tportMapId\030\002 \002(\003\022\020\n" +
-      "\010disabled\030\003 \002(\010*\270\002\n\014MessageTypes\022\013\n\007NEW_" +
-      "MSG\020\001\022\007\n\003ACK\020\002\022\t\n\005ERROR\020\003\022\t\n\005NAUTH\020\004\022\n\n\006" +
-      "URGENT\020\010\022\n\n\006TUNNEL\020\022\022\022\n\016TUNNEL_FORWARD\020\023",
-      "\022\030\n\024TUNNEL_FORWARD_ERROR\020\024\022\023\n\017START_LIST" +
-      "ENING\020\025\022\r\n\tOPEN_PORT\020\026\022\016\n\nCLOSE_PORT\020\027\022\017" +
-      "\n\013STOP_LISTEN\020\030\022\017\n\013PORT_OPENED\020\031\022\025\n\021LIST" +
-      "ENING_STARTED\020\032\022\025\n\021LISTENING_STOPPED\020\033\022\017" +
-      "\n\013PORT_CLOSED\020\034\022\023\n\017DEVICE_MAPPINGS\020\035\022\014\n\010" +
-      "NO_ROUTE\020\036B4\n\034org.shelloid.common.messag" +
-      "esB\024ShelloidMessageModel"
+      "\010disabled\030\003 \002(\010*\305\002\n\014MessageTypes\022\013\n\007NEW_" +
+      "MSG\020\001\022\007\n\003ACK\020\002\022\t\n\005ERROR\020\003\022\t\n\005NAUTH\020\004\022\013\n\007" +
+      "NODEMSG\020\005\022\n\n\006URGENT\020\010\022\n\n\006TUNNEL\020\022\022\022\n\016TUN",
+      "NEL_FORWARD\020\023\022\030\n\024TUNNEL_FORWARD_ERROR\020\024\022" +
+      "\023\n\017START_LISTENING\020\025\022\r\n\tOPEN_PORT\020\026\022\016\n\nC" +
+      "LOSE_PORT\020\027\022\017\n\013STOP_LISTEN\020\030\022\017\n\013PORT_OPE" +
+      "NED\020\031\022\025\n\021LISTENING_STARTED\020\032\022\025\n\021LISTENIN" +
+      "G_STOPPED\020\033\022\017\n\013PORT_CLOSED\020\034\022\023\n\017DEVICE_M" +
+      "APPINGS\020\035\022\014\n\010NO_ROUTE\020\036B4\n\034org.shelloid." +
+      "common.messagesB\024ShelloidMessageModel"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

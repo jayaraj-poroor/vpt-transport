@@ -20,6 +20,7 @@ public class Configurations {
     public static final int PING_SEND_INTERVAL = 30;
     public static long RX_TX_WINDOW_SIZE_MS;
     public static int MAX_REDIS_CONNECTIONS = 128;
+    public static int TUNNEL_FORWARD_MAX_RETTRY_CNT = 3;
     public static String SERVER_IP;
     
     static {
@@ -44,6 +45,7 @@ public class Configurations {
         props.load(input);
         RX_TX_WINDOW_SIZE_MS = Long.parseLong(get(Configurations.ConfigParams.RX_TX_WINDOW_SIZE_SECS)) * 1000;
         SERVER_IP = get(Configurations.ConfigParams.SERVER_IP);
+        TUNNEL_FORWARD_MAX_RETTRY_CNT = Integer.parseInt(get(Configurations.ConfigParams.TUNNEL_FORWARD_MAX_RETTRY_CNT));
     }
 
     public static String get(ConfigParams key) {

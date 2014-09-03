@@ -27,7 +27,7 @@ import redis.clients.jedis.*;
 public class CloudReliableMessenger {
 
     private static final ConcurrentHashMap<String, ConnectionMetadata> serverMap = new ConcurrentHashMap<>();
-    private static final ConcurrentHashMap<String, ConnectionMetadata> connectedDevicesMap = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<Long, ConnectionMetadata> connectedDevicesMap = new ConcurrentHashMap<>();
 
     private static final CloudReliableMessenger messager = new CloudReliableMessenger();
 
@@ -38,14 +38,14 @@ public class CloudReliableMessenger {
     private CloudReliableMessenger() {
     }
 
-    public void putDevice(String key, ConnectionMetadata val) {
+    public void putDevice(Long key, ConnectionMetadata val) {
         if (val == null){
             return;
         }
         connectedDevicesMap.put(key, val);
     }
 
-    public void removeDevice(String devId) {
+    public void removeDevice(Long devId) {
         connectedDevicesMap.remove(devId);
     }
 
@@ -53,7 +53,7 @@ public class CloudReliableMessenger {
         serverMap.remove(remoteIp);
     }
 
-    public ConnectionMetadata getDevice(String key) {
+    public ConnectionMetadata getDevice(Long key) {
         if (key == null){
             return null;
         }
@@ -87,11 +87,11 @@ public class CloudReliableMessenger {
         ch.writeAndFlush(new BinaryWebSocketFrame(b));
     } 
     
-    public void updateLastSendAckInRedis(Jedis tx, String clientId, long seqNo) {
+    public void updateLastSendAckInRedis(Jedis tx, long clientId, long seqNo) {
         tx.hset("ms-ack", clientId + "", seqNo + "");
     }
 
-    public long getLastSendAckFromRedis(Jedis jedis, String clientId) {
+    public long getLastSendAckFromRedis(Jedis jedis, long clientId) {
         String s = jedis.hget("ms-ack", clientId + "");
         long seqNum = -1;
         try{
@@ -104,7 +104,7 @@ public class CloudReliableMessenger {
     }
 
     public void sendToClient(Jedis jedis, ConnectionMetadata conn, ShelloidMessage msg) {
-        String deviceId = conn.getClientId();
+        long deviceId = Long.parseLong(conn.getClientId());
         long len;
         long seqNum = jedis.hincrBy("seq-node", deviceId + "", 1);
         synchronized(conn){
@@ -121,7 +121,7 @@ public class CloudReliableMessenger {
     }
     
     public void onClientAck(Jedis jedis, DeferredRedisTransaction tx, ConnectionMetadata conn, long recvdSeqNum) throws ShelloidNonRetriableException {
-        String clientId = conn.getClientId();
+        long clientId = Long.parseLong(conn.getClientId());
         String queueKey = "mq-node" + clientId;
         String storeKey = "ms-node" + clientId;
         ArrayList<String> ackSeqNums = new ArrayList<>();

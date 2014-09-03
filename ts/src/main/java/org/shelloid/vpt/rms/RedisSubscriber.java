@@ -68,7 +68,7 @@ public class RedisSubscriber extends JedisPubSub {
     public void onUnsubscribe(String string, int i) {
     }
 
-    public void handleNewMsg(String deviceId) {
+    public void handleNewMsg(long deviceId) {
         Jedis jedis = null;
         try {
             jedis = platform.getRedisConnection();

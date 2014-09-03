@@ -32,7 +32,7 @@ public class RMSUtils {
          return utils;
     }
 
-    public String getRemoteDeviceId(Connection conn, boolean isSvcSide, String portMapId) throws SQLException, ShelloidNonRetriableException {
+    public long getRemoteDeviceId(Connection conn, boolean isSvcSide, long portMapId) throws SQLException, ShelloidNonRetriableException {
         String remoteDevId = null;
         ArrayList<HashMap<String, Object>> list = Database.getResult(conn, "SELECT mapped_dev_id, svc_dev_id FROM port_maps WHERE id = ?", new Object[]{portMapId});
         if (list.size() > 0) {
@@ -47,7 +47,7 @@ public class RMSUtils {
         } else {
             throw new ShelloidNonRetriableException("Invalid port map ID: " + portMapId);
         }
-        return remoteDevId;
+        return Long.parseLong(remoteDevId);
     }
 
 }

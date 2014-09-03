@@ -95,7 +95,7 @@ public class App {
         }).start();
     }
 
-    public static void queryNewMsgs(String deviceId) {
+    public static void queryNewMsgs(long deviceId) {
         sub.handleNewMsg(deviceId);
     }
 
