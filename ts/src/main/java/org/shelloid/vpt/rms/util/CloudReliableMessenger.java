@@ -9,17 +9,18 @@ You must not remove this notice, or any other, from this software.
 */
 package org.shelloid.vpt.rms.util;
 
-import org.shelloid.common.messages.MessageTypes;
-import org.shelloid.common.messages.ShelloidMessage;
-import org.shelloid.common.exceptions.ShelloidNonRetriableException;
-import org.shelloid.vpt.rms.ConnectionMetadata;
-import org.shelloid.common.DeferredRedisTransaction;
-import org.shelloid.common.messages.MessageFields;
-import static org.shelloid.vpt.rms.server.VPTServerHandler.CONNECTION_MAPPING;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.handler.codec.http.websocketx.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import org.shelloid.common.DeferredRedisTransaction;
+import org.shelloid.common.exceptions.ShelloidNonRetriableException;
+import org.shelloid.common.messages.ShelloidMessageModel.MessageTypes;
+import org.shelloid.common.messages.ShelloidMessageModel.ShelloidMessage;
+import org.shelloid.vpt.rms.ConnectionMetadata;
+import static org.shelloid.vpt.rms.server.VPTServerHandler.CONNECTION_MAPPING;
 import redis.clients.jedis.*;
 
 /* @author Harikrishnan */
@@ -67,20 +68,23 @@ public class CloudReliableMessenger {
         return serverMap.get(key);
     }
     
-    public void sendNoRouteMessage(Jedis jedis, ConnectionMetadata connection, String portMapId, String connTs, String destinationDeviceId, String strMsg) throws ShelloidNonRetriableException {
-        ShelloidMessage msg = new ShelloidMessage();
-        msg.put(MessageFields.type, MessageTypes.URGENT);
-        msg.put(MessageFields.subType, MessageTypes.NO_ROUTE);
-        msg.put(MessageFields.portMapId, portMapId);
-        msg.put(MessageFields.connTs, connTs);
-        msg.put(MessageFields.remoteDevId, destinationDeviceId);
-        msg.put(MessageFields.msg, strMsg);
+    public void sendNoRouteMessage(Jedis jedis, ConnectionMetadata connection, long portMapId, long connTs, long destinationDeviceId, String strMsg) throws ShelloidNonRetriableException {
+        ShelloidMessage.Builder msg = ShelloidMessage.newBuilder();
+        msg.setType(MessageTypes.URGENT);
+        msg.setSubType(MessageTypes.NO_ROUTE);
+        msg.setPortMapId(portMapId);
+        msg.setConnTs(connTs);
+        msg.setRemoteDevId(destinationDeviceId);
+        msg.setMsg(strMsg);
         Platform.shelloidLogger.error(strMsg);
-        sendImmediateToConnection(connection.getChannel(), msg);
+        sendImmediateToConnection(connection.getChannel(), msg.build());
     }
 
-    public void sendImmediateToConnection(Channel ctx, ShelloidMessage msg) {
-        sendToWebSocket(ctx, msg.getJson());
+    public void sendImmediateToConnection(Channel ch, ShelloidMessage msg) {
+        byte barr[] = msg.toByteArray();
+        ByteBuf b = Unpooled.buffer(barr.length + 1);
+        b.writeBytes(barr);
+        ch.writeAndFlush(new BinaryWebSocketFrame(b));
     } 
     
     public void updateLastSendAckInRedis(Jedis tx, String clientId, long seqNo) {
@@ -106,12 +110,13 @@ public class CloudReliableMessenger {
         synchronized(conn){
             len = jedis.rpush("mq-node" + deviceId, seqNum + "");
         }
-        msg.put(MessageFields.seqNum, seqNum + "");
-        String json = msg.getJson();
-        jedis.hset("ms-node" + deviceId, seqNum + "", json);
-        Platform.shelloidLogger.debug("Server Scheduling " + json + " and len = " + len + " for device " + deviceId);
+        ShelloidMessage.Builder builder = msg.toBuilder();
+        builder.setSeqNum (seqNum);
+        String smsg = new String(builder.build().toByteArray());
+        jedis.hset("ms-node" + deviceId, seqNum + "", smsg);
+        Platform.shelloidLogger.debug("Server Scheduling message and mq-node" + deviceId  + ": " +len+ ", for device " + deviceId);
         if (len == 1) {
-            sendToWebSocket(conn.getChannel(), json);
+            sendToWebSocket(conn.getChannel(), smsg);
         }
     }
     

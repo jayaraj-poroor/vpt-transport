@@ -51,7 +51,6 @@ public class App {
         subscribeToRedis();
         Platform.shelloidLogger.warn("Shelloid VPT Server " + getVersion() + " started.");
         ShelloidMX mx = null;
-        /* TODO: init MX */
         String className = get(Configurations.ConfigParams.ADDON_CLASSNAME);
         if (className != null){
             String jarName = get(Configurations.ConfigParams.ADDON_JARNAME);

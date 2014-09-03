@@ -1,0 +1,60 @@
+package example;
+option java_package = "org.shelloid.common.messages";
+option java_outer_classname = "ShelloidMessageModel";
+
+message ShelloidMessage {	
+	required 			MessageTypes	type = 1;
+	optional 			MessageTypes 	subType = 2;
+	optional 			string 			device_id = 3;
+	optional 			int64 			seqNum = 4;
+	optional 			string 			msg = 5;
+	optional 			string 			key = 6;
+	optional 			string 			secret = 7;
+	repeated 			string 			users = 9;
+	optional 			int64			portMapId = 10;
+	optional 			bool			isSvcSide = 11;
+	optional 			int64 			remoteDevId = 12;
+	optional 			int32 			retries = 13;
+	optional 			int32 			svcPort = 14;
+	optional 			int32 			mappedPort = 15;
+	optional 			bytes 			data = 16;
+	optional 			int32 			agentPort = 17;
+	optional 			int64			connTs = 18;
+	optional 			string 			ctrlMsg = 19;
+	repeated			PortMappingInfo	guestPortMappings = 20;
+	repeated			PortMappingInfo	hostPortMappings = 21;
+	optional 			int64 			srcDeviceId = 22;
+	optional 			int32 			port = 23;
+	optional 			bool 			disabled = 24;
+	optional 			string			version = 25;
+	optional 			bool			resetLastSendAck = 26;
+	optional 			int64 			nodeId = 27;
+	optional 			string			action = 28;
+}
+
+enum MessageTypes {
+	NEW_MSG = 1;
+	ACK = 2;
+	ERROR = 3;
+	NAUTH = 4;
+	URGENT = 8;
+	TUNNEL = 18;
+	TUNNEL_FORWARD = 19;
+	TUNNEL_FORWARD_ERROR = 20;
+	START_LISTENING = 21;
+	OPEN_PORT = 22;
+	CLOSE_PORT = 23;
+	STOP_LISTEN = 24;  
+	PORT_OPENED = 25;
+	LISTENING_STARTED = 26;
+	LISTENING_STOPPED = 27;
+	PORT_CLOSED = 28;
+	DEVICE_MAPPINGS = 29;
+	NO_ROUTE = 30;
+}
+
+message PortMappingInfo {
+	required int32	port = 1;
+	required int64	portMapId = 2;
+	required bool 	disabled = 3;
+}

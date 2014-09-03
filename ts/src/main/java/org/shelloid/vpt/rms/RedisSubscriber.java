@@ -9,13 +9,11 @@ You must not remove this notice, or any other, from this software.
 */
 package org.shelloid.vpt.rms;
 
-import org.shelloid.common.messages.MessageTypes;
-import org.shelloid.common.messages.MessageFields;
-import org.shelloid.common.messages.ShelloidMessage;
+import com.google.gson.*;
 import org.shelloid.common.exceptions.ShelloidNonRetriableException;
+import org.shelloid.common.messages.ShelloidMessageModel.ShelloidMessage;
 import org.shelloid.vpt.rms.util.CloudReliableMessenger;
 import org.shelloid.vpt.rms.util.Platform;
-import com.google.gson.*;
 import redis.clients.jedis.*;
 
 /* @author Harikrishnan */
@@ -46,18 +44,18 @@ public class RedisSubscriber extends JedisPubSub {
     @Override
     public void onMessage(String channel, String msg) {
         try {
-            ShelloidMessage smsg = ShelloidMessage.parse(msg);
-            switch (smsg.getString(MessageFields.type)) {
-                case MessageTypes.NEW_MSG: {
+            ShelloidMessage smsg = ShelloidMessage.parseFrom(msg.getBytes());
+            switch (smsg.getType()) {
+                case NEW_MSG: {
                     Platform.shelloidLogger.debug("NEW arrived at Redis.");
-                    handleNewMsg(smsg.getString(MessageFields.device_id));
+                    handleNewMsg(smsg.getDeviceId());
                     break;
                 }
                 default: {
                     break;
                 }
             }
-        } catch (ShelloidNonRetriableException ex) {
+        } catch (Exception ex) {
             Platform.shelloidLogger.error("Invalid JSON", ex);
         }
     }
@@ -79,13 +77,13 @@ public class RedisSubscriber extends JedisPubSub {
                 String msg = jedis.lpop("dev" + deviceId);
                 while (msg != null) {
                     Platform.shelloidLogger.debug("NEW Message: " + msg);
-                    messenger.sendToClient(jedis, cm, ShelloidMessage.parse(msg));
+                    messenger.sendToClient(jedis, cm, ShelloidMessage.parseFrom(msg.getBytes()));
                     msg = jedis.lpop("dev" + deviceId);
                 }
             } else {
                 Platform.shelloidLogger.error("Can't find device " + deviceId);
             }
-        } catch (ShelloidNonRetriableException ex) {
+        } catch (Exception ex) {
             Platform.shelloidLogger.error("Invalid JSON", ex);
         } finally {
             if (jedis != null) {
