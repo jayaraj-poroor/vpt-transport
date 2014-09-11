@@ -100,8 +100,8 @@ public class DeferredRedisTransaction
         cmds.add(new RedisCommand(CMD_LPOP, s1));
     }
 
-    public void publish(String server, String json) {
-        cmds.add(new RedisCommand(CMD_PUBLISH, server, json));
+    public void publish(String server, String msg) {
+        cmds.add(new RedisCommand(CMD_PUBLISH, server, msg));
     }
 
     class RedisCommand

@@ -1,14 +1,15 @@
 /*
-Copyright (c) Shelloid Systems LLP. All rights reserved.
-The use and distribution terms for this software are covered by the
-GNU Affero General Public License 3.0 (http://www.gnu.org/licenses/agpl-3.0.html)
-which can be found in the file LICENSE at the root of this distribution.
-By using this software in any fashion, you are agreeing to be bound by
-the terms of this license.
-You must not remove this notice, or any other, from this software.
-*/
+ Copyright (c) Shelloid Systems LLP. All rights reserved.
+ The use and distribution terms for this software are covered by the
+ GNU Affero General Public License 3.0 (http://www.gnu.org/licenses/agpl-3.0.html)
+ which can be found in the file LICENSE at the root of this distribution.
+ By using this software in any fashion, you are agreeing to be bound by
+ the terms of this license.
+ You must not remove this notice, or any other, from this software.
+ */
 package org.shelloid.vpt.rms.server;
 
+import com.google.protobuf.TextFormat;
 import io.netty.buffer.*;
 import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
@@ -34,6 +35,7 @@ import org.shelloid.common.exceptions.ShelloidNonRetriableException;
 import org.shelloid.common.messages.MessageValues;
 import org.shelloid.common.messages.ShelloidHeaderFields;
 import org.shelloid.common.messages.ShelloidMessageModel.*;
+import org.shelloid.ptcp.HelperFunctions;
 import org.shelloid.vpt.rms.App;
 import org.shelloid.vpt.rms.ConnectionMetadata;
 import org.shelloid.vpt.rms.addon.ShelloidMX;
@@ -72,7 +74,7 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         ConnectionMetadata cm = messenger.getDevice(ctx.channel().attr(CONNECTION_MAPPING).get());
-        if (shdMx != null){
+        if (shdMx != null) {
             shdMx.onAgentDisconnect(cm);
         }
         onDisconnect(ctx.channel());
@@ -80,12 +82,12 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        
+
     }
 
     @Override
     public void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-        
+
         if (msg instanceof FullHttpRequest) {
             handleHttpRequest(ctx, (FullHttpRequest) msg);
         } else if (msg instanceof WebSocketFrame) {
@@ -131,7 +133,7 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
                             }
                         });
                     } else {
-                        Platform.shelloidLogger.error ("Rejecting agent client connection due to auth failure: " + req.headers().get(ShelloidHeaderFields.key) + ":"  +req.headers().get(ShelloidHeaderFields.secret));
+                        Platform.shelloidLogger.error("Rejecting agent client connection due to auth failure: " + req.headers().get(ShelloidHeaderFields.key) + ":" + req.headers().get(ShelloidHeaderFields.secret));
                         WebSocketServerHandshakerFactory.sendUnsupportedVersionResponse(ch);
                         ctx.close();
                     }
@@ -149,10 +151,14 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
             ctx.channel().write(new PongWebSocketFrame(frame.content().retain()));
         } else if (frame instanceof BinaryWebSocketFrame) {
             BinaryWebSocketFrame binFrame = (BinaryWebSocketFrame) frame;
-            /* TODO: check whther is it the last message */
-            processWebSocketTextFrame(ctx.channel(), binFrame.content().array());
+            ByteBuf b = binFrame.content();
+            byte[] bytes = new byte[b.capacity()];
+            b.getBytes(0, bytes);
+            processWebSocketTextFrame(ctx.channel(), bytes);
         } else if (frame instanceof PongWebSocketFrame) {
             /* Do nothing */
+        } else if (frame instanceof TextWebSocketFrame) {
+            throw new Exception("TextWebSocketFrame" + ((TextWebSocketFrame) frame).text());
         } else {
             throw new UnsupportedOperationException(String.format("%s frame types not supported", frame.getClass().getName()));
         }
@@ -213,8 +219,9 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
                 messenger.removeDevice(devId);
                 ArrayList<String> list = new ArrayList<>();
                 list.add("*");
-                jedis.publish("nodeStatus:" + devId, getNodeStatusMsg(devId, MessageValues.D, list));
-                jedis.hdel("deviceMap", devId+"");
+                byte[] nodeStatus = getNodeStatusMsg(devId, MessageValues.D, list);
+                jedis.publish("nodeStatus:" + devId, HelperFunctions.toHexString(nodeStatus, 0, nodeStatus.length));
+                jedis.hdel("deviceMap", devId + "");
                 Database.doUpdate(conn, "UPDATE devices SET status='D', last_disconnect_ts = CURRENT_TIMESTAMP WHERE id = ?", new Object[]{devId});
                 Database.doUpdate(conn, "DELETE FROM device_updates WHERE updateType = 'nodeStatus' AND refId = ? AND (status = 'C' OR status = 'D')", new Object[]{devId});
                 Database.doUpdate(conn, "INSERT INTO device_updates (updateType, refId, update_ts, status) VALUES ('nodeStatus', ?, CURRENT_TIMESTAMP, 'D')", new Object[]{devId});
@@ -246,14 +253,14 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
             ConnectionMetadata cm = messenger.getDevice(ch.attr(CONNECTION_MAPPING).get());
             MessageTypes type = msg.getType();
             if (cm == null) {
-                Platform.shelloidLogger.debug("Server Received " + type + " message from UNKNOWN, so ignoring");
+                Platform.shelloidLogger.debug("Server Received {" + TextFormat.shortDebugString(msg) + "} message from UNKNOWN, so ignoring");
             } else {
-                Platform.shelloidLogger.debug("Server Received " + type + " message from " + cm.getClientId());
+                Platform.shelloidLogger.debug("Server Received {" + TextFormat.shortDebugString(msg) + "} message from " + cm.getClientId());
                 conn = platform.getDbConnection();
                 jedis = platform.getRedisConnection();
                 conn.setAutoCommit(false);
                 if (type == MessageTypes.URGENT) {
-                    switch (type) {
+                    switch (msg.getSubType()) {
                         case ACK: {
                             long seqNo = msg.getSeqNum();
                             messenger.onClientAck(jedis, tx, cm, seqNo);
@@ -272,21 +279,21 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
                             long portMapId = msg.getPortMapId();
                             switch (type) {
                                 case PORT_OPENED: {
-                                    if (shdMx != null){
+                                    if (shdMx != null) {
                                         shdMx.onOpenPortMap(conn, portMapId);
                                     }
                                     handlePortOpenedMethod(msg, conn, ch, jedis, tx, cm);
                                     break;
                                 }
                                 case LISTENING_STARTED: {
-                                    if (shdMx != null){
+                                    if (shdMx != null) {
                                         shdMx.onOpenPortMap(conn, portMapId);
                                     }
                                     handleListeningStartedMethod(msg, conn, ch, jedis);
                                     break;
                                 }
                                 case LISTENING_STOPPED: {
-                                    if (shdMx != null){
+                                    if (shdMx != null) {
                                         shdMx.onClosePortMap(conn, portMapId);
                                     }
                                     Database.doUpdate(conn, "DELETE FROM port_maps WHERE id = ?", new Object[]{portMapId});
@@ -294,7 +301,7 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
                                     break;
                                 }
                                 case PORT_CLOSED: {
-                                    if (shdMx != null){
+                                    if (shdMx != null) {
                                         shdMx.onClosePortMap(conn, portMapId);
                                     }
                                     Database.doUpdate(conn, "UPDATE port_maps SET app_side_status = 'PENDING', mapped_port = -1 WHERE id = ?", new Object[]{portMapId});
@@ -318,8 +325,7 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
                 tx.execute(jedis);
                 conn.commit();
             }
-        }
-        finally {
+        } finally {
             if (jedis != null) {
                 platform.returnJedis(jedis);
             }
@@ -334,11 +340,11 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     private void sendAckToDevice(long seqNum, Channel ch) {
-        
+
         ShelloidMessage.Builder ack = ShelloidMessage.newBuilder();
         ack.setType(MessageTypes.URGENT);
         ack.setSubType(MessageTypes.ACK);
-        ack.setSeqNum (seqNum);
+        ack.setSeqNum(seqNum);
         messenger.sendImmediateToConnection(ch, ack.build());
     }
 
@@ -371,18 +377,18 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
 
     private void sendToDevice(Jedis jedis, DeferredRedisTransaction tx, ConnectionMetadata conn, long deviceId, ShelloidMessage msg) throws ShelloidNonRetriableException {
         ConnectionMetadata dev = messenger.getDevice(deviceId);
-        if (shdMx != null){
+        if (shdMx != null) {
             shdMx.onGeneratedReliableMsg(conn, dev, deviceId, msg, jedis, tx);
         }
         if (dev == null) {
-            if (shdMx == null){
+            if (shdMx == null) {
                 messenger.sendNoRouteMessage(jedis, conn, msg.getPortMapId(), msg.getConnTs(), deviceId, "Can't find a path to device " + deviceId);
             }
         } else {
             messenger.sendToClient(jedis, dev, msg);
         }
     }
-    
+
     private void handleTunnelMsg(ShelloidMessage msg, Channel ch, Connection conn, Jedis jedis, ConnectionMetadata cm) throws SQLException, ShelloidNonRetriableException {
         long portMapId = msg.getPortMapId();
         Long remoteDevId = ch.attr(REMOTE_DEVICES).get().get(portMapId);
@@ -393,7 +399,7 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
         }
         ConnectionMetadata remoteCm = messenger.getDevice(remoteDevId);
         if (remoteCm == null) {
-            if (shdMx == null){
+            if (shdMx == null) {
                 Platform.shelloidLogger.debug("Not Forwarding tunnel message to " + remoteDevId + " since no addon loaded.");
             }
         } else {
@@ -439,15 +445,16 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
             conn = platform.getDbConnection();
             Long devId = ch.attr(CONNECTION_MAPPING).get();
             ch.attr(RXTX_STATS).set(new RxTxStats());
-            ConnectionMetadata cm = new ConnectionMetadata(devId+"", new Date().getTime(), ch);
+            ConnectionMetadata cm = new ConnectionMetadata(devId + "", new Date().getTime(), ch);
             messenger.putDevice(devId, cm);
-            if (shdMx != null){
+            if (shdMx != null) {
                 shdMx.onAgentAuth(cm, devId, Configurations.SERVER_IP);
             }
             jedis.hset("deviceMap", devId + "", Configurations.SERVER_IP);
             ArrayList<String> list = new ArrayList<>();
             list.add("*");
-            jedis.publish("nodeStatus:" + devId, getNodeStatusMsg(devId, MessageValues.C, list));
+            byte [] nodeStatusMessage = getNodeStatusMsg(devId, MessageValues.C, list);
+            jedis.publish("nodeStatus:" + devId, HelperFunctions.toHexString(nodeStatusMessage, 0, nodeStatusMessage.length));
             long lastSendAck = -1;
             if (resetLastSendAck) {
                 Platform.shelloidLogger.warn("Resetting last sent ack for " + devId);
@@ -476,13 +483,13 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
         }
     }
 
-    private static String getNodeStatusMsg(long clientId, String msg, ArrayList<String> users) {
+    private static byte[] getNodeStatusMsg(long clientId, String msg, Iterable<String> users) {
         ShelloidMessage.Builder smsg = ShelloidMessage.newBuilder();
         smsg.setType(MessageTypes.NODEMSG);
         smsg.setNodeId(clientId);
         smsg.setMsg(msg);
         smsg.addAllUsers(users);
-        return new String(smsg.build().toByteArray());
+        return smsg.build().toByteArray();
     }
 
     private void sendPortmapInfoToDeviceOnAuth(Jedis jedis, Connection conn, long devId, Channel ch) throws SQLException, ShelloidNonRetriableException {
@@ -493,11 +500,11 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
         ArrayList<PortMappingInfo> guestPortMaps = new ArrayList<>();
         ArrayList<PortMappingInfo> hostPortMaps = new ArrayList<>();
         for (HashMap<String, Object> map : portMaps) {
-            String hostDevId = map.get("svc_dev_id").toString();
-                PortMappingInfo.Builder info = PortMappingInfo.newBuilder();
-                info.setDisabled(Boolean.parseBoolean(map.get("disabled").toString()));
-                info.setPortMapId(Long.parseLong(map.get("id").toString()));
-            if (hostDevId.equals(devId)) {
+            Long hostDevId = Long.parseLong(map.get("svc_dev_id").toString());
+            PortMappingInfo.Builder info = PortMappingInfo.newBuilder();
+            info.setDisabled(Boolean.parseBoolean(map.get("disabled").toString()));
+            info.setPortMapId(Long.parseLong(map.get("id").toString()));
+            if (hostDevId == devId) {
                 info.setPort(Integer.parseInt(map.get("svc_port").toString()));
                 hostPortMaps.add(info.build());
             } else {
@@ -510,19 +517,21 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
         messenger.sendImmediateToConnection(ch, msg.build());
     }
 
-    private String getPortMapStatusMessage(int portMapStatus, int mappedPort) {
+    private byte[] getPortMapStatusMessage(int portMapStatus, int mappedPort) {
         ShelloidMessage.Builder msg = ShelloidMessage.newBuilder();
-        msg.setAction (portMapStatus + "");
+        msg.setType(MessageTypes.OTHER_MESSAGES);
+        msg.setAction(portMapStatus + "");
         if (mappedPort != -1) {
-            msg.setMappedPort (mappedPort);
+            msg.setMappedPort(mappedPort);
         }
-        return new String(msg.build().toByteArray());
+        return msg.build().toByteArray();
     }
 
     private void updatePortMapStatus(Jedis jedis, Connection conn, long portMapId, int portMapStatusMessage, int mappedPort) throws SQLException {
         Database.doUpdate(conn, "DELETE FROM device_updates WHERE updateType = 'portMapStatus' AND refId = ?", new Object[]{portMapId});
         Database.doUpdate(conn, "INSERT INTO device_updates (updateType, refId, update_ts, status, params) VALUES ('portMapStatus', ?, CURRENT_TIMESTAMP, ?, ?)", new Object[]{portMapId, portMapStatusMessage + "", mappedPort});
-        jedis.publish("portMapStatus:" + portMapId, getPortMapStatusMessage(portMapStatusMessage, mappedPort));
+        byte nodeStatus [] = getPortMapStatusMessage(portMapStatusMessage, mappedPort);
+        jedis.publish("portMapStatus:" + portMapId, HelperFunctions.toHexString(nodeStatus, 0, nodeStatus.length));
     }
 
     public static class RxTxStats {

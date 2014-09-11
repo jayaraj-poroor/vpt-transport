@@ -9,6 +9,7 @@ You must not remove this notice, or any other, from this software.
 */
 package org.shelloid.vpt.rms.util;
 
+import com.google.protobuf.TextFormat;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
@@ -85,6 +86,7 @@ public class CloudReliableMessenger {
         ByteBuf b = Unpooled.buffer(barr.length + 1);
         b.writeBytes(barr);
         ch.writeAndFlush(new BinaryWebSocketFrame(b));
+        Platform.shelloidLogger.debug("Server sending immediate message: {" + TextFormat.shortDebugString(msg)+"}");
     } 
     
     public void updateLastSendAckInRedis(Jedis tx, long clientId, long seqNo) {
@@ -112,11 +114,12 @@ public class CloudReliableMessenger {
         }
         ShelloidMessage.Builder builder = msg.toBuilder();
         builder.setSeqNum (seqNum);
-        String smsg = new String(builder.build().toByteArray());
-        jedis.hset("ms-node" + deviceId, seqNum + "", smsg);
-        Platform.shelloidLogger.debug("Server Scheduling message and mq-node" + deviceId  + ": " +len+ ", for device " + deviceId);
+        ShelloidMessage msgObj = builder.build();
+        byte []barr = msgObj.toByteArray();
+        jedis.hset(("ms-node" + deviceId).getBytes(), (seqNum + "").getBytes(), barr);
+        Platform.shelloidLogger.debug("Server Scheduling message and mq-node" + deviceId  + ": " +len+ ", for device " + deviceId + ": {" + TextFormat.shortDebugString(msgObj)+"}");
         if (len == 1) {
-            sendToWebSocket(conn.getChannel(), smsg);
+            sendToWebSocket(conn.getChannel(), barr);
         }
     }
     
@@ -154,12 +157,14 @@ public class CloudReliableMessenger {
 
     private void sendQueuedMsgsToClient(Jedis jedis, ConnectionMetadata conn, String seqNumsToSend) {
         String key = "ms-node" + conn.getClientId();
-        String msg = jedis.hget(key, seqNumsToSend);
+        byte [] msg = jedis.hget(key.getBytes(), seqNumsToSend.getBytes());
         sendToWebSocket(conn.getChannel(), msg);
     }
 
-    private void sendToWebSocket(Channel conn, String frame) {
-        Platform.shelloidLogger.debug("Server Sending " + frame + " to " + conn.attr(CONNECTION_MAPPING).get());
-        conn.writeAndFlush(new TextWebSocketFrame(frame));
+    private void sendToWebSocket(Channel conn, byte[] frame) {
+        ByteBuf b = Unpooled.buffer(frame.length + 1);
+        b.writeBytes(frame);
+        Platform.shelloidLogger.debug("Server Sending data to " + conn.attr(CONNECTION_MAPPING).get());
+        conn.writeAndFlush(new BinaryWebSocketFrame(b));
     }
 }

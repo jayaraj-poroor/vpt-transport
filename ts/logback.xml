@@ -19,12 +19,11 @@
         </encoder>
     </appender>
 
-    <root level="debug">
-      <appender-ref ref="FILE" />
+    <root level="warn">
       <appender-ref ref="STDOUT" />
     </root>
     <logger name="ch.qos" level="WARN"/>
     <logger name="i.n" level="WARN"/>
     <logger name="io.netty" level="WARN"/>
-    <logger name="org.shelloid" level="debug"/>
+    <logger name="org.shelloid" level="warn"/>
 </configuration>

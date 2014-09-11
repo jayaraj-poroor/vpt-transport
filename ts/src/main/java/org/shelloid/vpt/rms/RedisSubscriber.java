@@ -9,8 +9,6 @@ You must not remove this notice, or any other, from this software.
 */
 package org.shelloid.vpt.rms;
 
-import com.google.gson.*;
-import org.shelloid.common.exceptions.ShelloidNonRetriableException;
 import org.shelloid.common.messages.ShelloidMessageModel.ShelloidMessage;
 import org.shelloid.vpt.rms.util.CloudReliableMessenger;
 import org.shelloid.vpt.rms.util.Platform;
@@ -18,13 +16,10 @@ import redis.clients.jedis.*;
 
 /* @author Harikrishnan */
 public class RedisSubscriber extends JedisPubSub {
-
-    private final Gson gson;
     private final Platform platform;
     private final CloudReliableMessenger messenger;
 
     public RedisSubscriber() {
-        gson = new Gson();
         platform = Platform.getInstance();
         messenger = CloudReliableMessenger.getInstance();
     }
@@ -56,7 +51,7 @@ public class RedisSubscriber extends JedisPubSub {
                 }
             }
         } catch (Exception ex) {
-            Platform.shelloidLogger.error("Invalid JSON", ex);
+            Platform.shelloidLogger.error("Invalid Message: ", ex);
         }
     }
 
@@ -74,17 +69,17 @@ public class RedisSubscriber extends JedisPubSub {
             jedis = platform.getRedisConnection();
             ConnectionMetadata cm = messenger.getDevice(deviceId);
             if (cm != null) {
-                String msg = jedis.lpop("dev" + deviceId);
+                byte [] msg = jedis.lpop(("dev" + deviceId).getBytes());
                 while (msg != null) {
-                    Platform.shelloidLogger.debug("NEW Message: " + msg);
-                    messenger.sendToClient(jedis, cm, ShelloidMessage.parseFrom(msg.getBytes()));
-                    msg = jedis.lpop("dev" + deviceId);
+                    Platform.shelloidLogger.debug("NEW Message: size(" + msg.length + ")");
+                    messenger.sendToClient(jedis, cm, ShelloidMessage.parseFrom(msg));
+                    msg = jedis.lpop(("dev" + deviceId).getBytes());
                 }
             } else {
                 Platform.shelloidLogger.error("Can't find device " + deviceId);
             }
         } catch (Exception ex) {
-            Platform.shelloidLogger.error("Invalid JSON", ex);
+            Platform.shelloidLogger.error("Invalid Message", ex);
         } finally {
             if (jedis != null) {
                 platform.returnJedis(jedis);

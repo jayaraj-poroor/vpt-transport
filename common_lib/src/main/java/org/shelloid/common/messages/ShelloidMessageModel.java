@@ -9,88 +9,96 @@ public final class ShelloidMessageModel {
       com.google.protobuf.ExtensionRegistry registry) {
   }
   /**
-   * Protobuf enum {@code example.MessageTypes}
+   * Protobuf enum {@code MessageTypes}
    */
   public enum MessageTypes
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
+     * <code>OTHER_MESSAGES = 0;</code>
+     */
+    OTHER_MESSAGES(0, 0),
+    /**
      * <code>NEW_MSG = 1;</code>
      */
-    NEW_MSG(0, 1),
+    NEW_MSG(1, 1),
     /**
      * <code>ACK = 2;</code>
      */
-    ACK(1, 2),
+    ACK(2, 2),
     /**
      * <code>ERROR = 3;</code>
      */
-    ERROR(2, 3),
+    ERROR(3, 3),
     /**
      * <code>NAUTH = 4;</code>
      */
-    NAUTH(3, 4),
+    NAUTH(4, 4),
     /**
      * <code>NODEMSG = 5;</code>
      */
-    NODEMSG(4, 5),
+    NODEMSG(5, 5),
     /**
      * <code>URGENT = 8;</code>
      */
-    URGENT(5, 8),
+    URGENT(6, 8),
     /**
      * <code>TUNNEL = 18;</code>
      */
-    TUNNEL(6, 18),
+    TUNNEL(7, 18),
     /**
      * <code>TUNNEL_FORWARD = 19;</code>
      */
-    TUNNEL_FORWARD(7, 19),
+    TUNNEL_FORWARD(8, 19),
     /**
      * <code>TUNNEL_FORWARD_ERROR = 20;</code>
      */
-    TUNNEL_FORWARD_ERROR(8, 20),
+    TUNNEL_FORWARD_ERROR(9, 20),
     /**
      * <code>START_LISTENING = 21;</code>
      */
-    START_LISTENING(9, 21),
+    START_LISTENING(10, 21),
     /**
      * <code>OPEN_PORT = 22;</code>
      */
-    OPEN_PORT(10, 22),
+    OPEN_PORT(11, 22),
     /**
      * <code>CLOSE_PORT = 23;</code>
      */
-    CLOSE_PORT(11, 23),
+    CLOSE_PORT(12, 23),
     /**
      * <code>STOP_LISTEN = 24;</code>
      */
-    STOP_LISTEN(12, 24),
+    STOP_LISTEN(13, 24),
     /**
      * <code>PORT_OPENED = 25;</code>
      */
-    PORT_OPENED(13, 25),
+    PORT_OPENED(14, 25),
     /**
      * <code>LISTENING_STARTED = 26;</code>
      */
-    LISTENING_STARTED(14, 26),
+    LISTENING_STARTED(15, 26),
     /**
      * <code>LISTENING_STOPPED = 27;</code>
      */
-    LISTENING_STOPPED(15, 27),
+    LISTENING_STOPPED(16, 27),
     /**
      * <code>PORT_CLOSED = 28;</code>
      */
-    PORT_CLOSED(16, 28),
+    PORT_CLOSED(17, 28),
     /**
      * <code>DEVICE_MAPPINGS = 29;</code>
      */
-    DEVICE_MAPPINGS(17, 29),
+    DEVICE_MAPPINGS(18, 29),
     /**
      * <code>NO_ROUTE = 30;</code>
      */
-    NO_ROUTE(18, 30),
+    NO_ROUTE(19, 30),
     ;
 
+    /**
+     * <code>OTHER_MESSAGES = 0;</code>
+     */
+    public static final int OTHER_MESSAGES_VALUE = 0;
     /**
      * <code>NEW_MSG = 1;</code>
      */
@@ -173,6 +181,7 @@ public final class ShelloidMessageModel {
 
     public static MessageTypes valueOf(int value) {
       switch (value) {
+        case 0: return OTHER_MESSAGES;
         case 1: return NEW_MSG;
         case 2: return ACK;
         case 3: return ERROR;
@@ -240,29 +249,29 @@ public final class ShelloidMessageModel {
       this.value = value;
     }
 
-    // @@protoc_insertion_point(enum_scope:example.MessageTypes)
+    // @@protoc_insertion_point(enum_scope:MessageTypes)
   }
 
   public interface ShelloidMessageOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // required .example.MessageTypes type = 1;
+    // required .MessageTypes type = 1;
     /**
-     * <code>required .example.MessageTypes type = 1;</code>
+     * <code>required .MessageTypes type = 1;</code>
      */
     boolean hasType();
     /**
-     * <code>required .example.MessageTypes type = 1;</code>
+     * <code>required .MessageTypes type = 1;</code>
      */
     org.shelloid.common.messages.ShelloidMessageModel.MessageTypes getType();
 
-    // optional .example.MessageTypes subType = 2;
+    // optional .MessageTypes subType = 2;
     /**
-     * <code>optional .example.MessageTypes subType = 2;</code>
+     * <code>optional .MessageTypes subType = 2;</code>
      */
     boolean hasSubType();
     /**
-     * <code>optional .example.MessageTypes subType = 2;</code>
+     * <code>optional .MessageTypes subType = 2;</code>
      */
     org.shelloid.common.messages.ShelloidMessageModel.MessageTypes getSubType();
 
@@ -456,52 +465,52 @@ public final class ShelloidMessageModel {
     com.google.protobuf.ByteString
         getCtrlMsgBytes();
 
-    // repeated .example.PortMappingInfo guestPortMappings = 20;
+    // repeated .PortMappingInfo guestPortMappings = 20;
     /**
-     * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+     * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
      */
     java.util.List<org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo> 
         getGuestPortMappingsList();
     /**
-     * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+     * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
      */
     org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo getGuestPortMappings(int index);
     /**
-     * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+     * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
      */
     int getGuestPortMappingsCount();
     /**
-     * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+     * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
      */
     java.util.List<? extends org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder> 
         getGuestPortMappingsOrBuilderList();
     /**
-     * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+     * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
      */
     org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder getGuestPortMappingsOrBuilder(
         int index);
 
-    // repeated .example.PortMappingInfo hostPortMappings = 21;
+    // repeated .PortMappingInfo hostPortMappings = 21;
     /**
-     * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+     * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
      */
     java.util.List<org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo> 
         getHostPortMappingsList();
     /**
-     * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+     * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
      */
     org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo getHostPortMappings(int index);
     /**
-     * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+     * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
      */
     int getHostPortMappingsCount();
     /**
-     * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+     * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
      */
     java.util.List<? extends org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder> 
         getHostPortMappingsOrBuilderList();
     /**
-     * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+     * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
      */
     org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder getHostPortMappingsOrBuilder(
         int index);
@@ -587,7 +596,7 @@ public final class ShelloidMessageModel {
         getActionBytes();
   }
   /**
-   * Protobuf type {@code example.ShelloidMessage}
+   * Protobuf type {@code ShelloidMessage}
    */
   public static final class ShelloidMessage extends
       com.google.protobuf.GeneratedMessage
@@ -816,12 +825,12 @@ public final class ShelloidMessageModel {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.shelloid.common.messages.ShelloidMessageModel.internal_static_example_ShelloidMessage_descriptor;
+      return org.shelloid.common.messages.ShelloidMessageModel.internal_static_ShelloidMessage_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.shelloid.common.messages.ShelloidMessageModel.internal_static_example_ShelloidMessage_fieldAccessorTable
+      return org.shelloid.common.messages.ShelloidMessageModel.internal_static_ShelloidMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.shelloid.common.messages.ShelloidMessageModel.ShelloidMessage.class, org.shelloid.common.messages.ShelloidMessageModel.ShelloidMessage.Builder.class);
     }
@@ -842,33 +851,33 @@ public final class ShelloidMessageModel {
     }
 
     private int bitField0_;
-    // required .example.MessageTypes type = 1;
+    // required .MessageTypes type = 1;
     public static final int TYPE_FIELD_NUMBER = 1;
     private org.shelloid.common.messages.ShelloidMessageModel.MessageTypes type_;
     /**
-     * <code>required .example.MessageTypes type = 1;</code>
+     * <code>required .MessageTypes type = 1;</code>
      */
     public boolean hasType() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required .example.MessageTypes type = 1;</code>
+     * <code>required .MessageTypes type = 1;</code>
      */
     public org.shelloid.common.messages.ShelloidMessageModel.MessageTypes getType() {
       return type_;
     }
 
-    // optional .example.MessageTypes subType = 2;
+    // optional .MessageTypes subType = 2;
     public static final int SUBTYPE_FIELD_NUMBER = 2;
     private org.shelloid.common.messages.ShelloidMessageModel.MessageTypes subType_;
     /**
-     * <code>optional .example.MessageTypes subType = 2;</code>
+     * <code>optional .MessageTypes subType = 2;</code>
      */
     public boolean hasSubType() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional .example.MessageTypes subType = 2;</code>
+     * <code>optional .MessageTypes subType = 2;</code>
      */
     public org.shelloid.common.messages.ShelloidMessageModel.MessageTypes getSubType() {
       return subType_;
@@ -1252,72 +1261,72 @@ public final class ShelloidMessageModel {
       }
     }
 
-    // repeated .example.PortMappingInfo guestPortMappings = 20;
+    // repeated .PortMappingInfo guestPortMappings = 20;
     public static final int GUESTPORTMAPPINGS_FIELD_NUMBER = 20;
     private java.util.List<org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo> guestPortMappings_;
     /**
-     * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+     * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
      */
     public java.util.List<org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo> getGuestPortMappingsList() {
       return guestPortMappings_;
     }
     /**
-     * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+     * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
      */
     public java.util.List<? extends org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder> 
         getGuestPortMappingsOrBuilderList() {
       return guestPortMappings_;
     }
     /**
-     * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+     * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
      */
     public int getGuestPortMappingsCount() {
       return guestPortMappings_.size();
     }
     /**
-     * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+     * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
      */
     public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo getGuestPortMappings(int index) {
       return guestPortMappings_.get(index);
     }
     /**
-     * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+     * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
      */
     public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder getGuestPortMappingsOrBuilder(
         int index) {
       return guestPortMappings_.get(index);
     }
 
-    // repeated .example.PortMappingInfo hostPortMappings = 21;
+    // repeated .PortMappingInfo hostPortMappings = 21;
     public static final int HOSTPORTMAPPINGS_FIELD_NUMBER = 21;
     private java.util.List<org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo> hostPortMappings_;
     /**
-     * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+     * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
      */
     public java.util.List<org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo> getHostPortMappingsList() {
       return hostPortMappings_;
     }
     /**
-     * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+     * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
      */
     public java.util.List<? extends org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder> 
         getHostPortMappingsOrBuilderList() {
       return hostPortMappings_;
     }
     /**
-     * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+     * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
      */
     public int getHostPortMappingsCount() {
       return hostPortMappings_.size();
     }
     /**
-     * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+     * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
      */
     public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo getHostPortMappings(int index) {
       return hostPortMappings_.get(index);
     }
     /**
-     * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+     * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
      */
     public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder getHostPortMappingsOrBuilder(
         int index) {
@@ -1491,8 +1500,8 @@ public final class ShelloidMessageModel {
     }
 
     private void initFields() {
-      type_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.NEW_MSG;
-      subType_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.NEW_MSG;
+      type_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.OTHER_MESSAGES;
+      subType_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.OTHER_MESSAGES;
       deviceId_ = 0L;
       seqNum_ = 0L;
       msg_ = "";
@@ -1829,19 +1838,19 @@ public final class ShelloidMessageModel {
       return builder;
     }
     /**
-     * Protobuf type {@code example.ShelloidMessage}
+     * Protobuf type {@code ShelloidMessage}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements org.shelloid.common.messages.ShelloidMessageModel.ShelloidMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.shelloid.common.messages.ShelloidMessageModel.internal_static_example_ShelloidMessage_descriptor;
+        return org.shelloid.common.messages.ShelloidMessageModel.internal_static_ShelloidMessage_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.shelloid.common.messages.ShelloidMessageModel.internal_static_example_ShelloidMessage_fieldAccessorTable
+        return org.shelloid.common.messages.ShelloidMessageModel.internal_static_ShelloidMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 org.shelloid.common.messages.ShelloidMessageModel.ShelloidMessage.class, org.shelloid.common.messages.ShelloidMessageModel.ShelloidMessage.Builder.class);
       }
@@ -1868,9 +1877,9 @@ public final class ShelloidMessageModel {
 
       public Builder clear() {
         super.clear();
-        type_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.NEW_MSG;
+        type_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.OTHER_MESSAGES;
         bitField0_ = (bitField0_ & ~0x00000001);
-        subType_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.NEW_MSG;
+        subType_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.OTHER_MESSAGES;
         bitField0_ = (bitField0_ & ~0x00000002);
         deviceId_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -1939,7 +1948,7 @@ public final class ShelloidMessageModel {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.shelloid.common.messages.ShelloidMessageModel.internal_static_example_ShelloidMessage_descriptor;
+        return org.shelloid.common.messages.ShelloidMessageModel.internal_static_ShelloidMessage_descriptor;
       }
 
       public org.shelloid.common.messages.ShelloidMessageModel.ShelloidMessage getDefaultInstanceForType() {
@@ -2283,22 +2292,22 @@ public final class ShelloidMessageModel {
       }
       private int bitField0_;
 
-      // required .example.MessageTypes type = 1;
-      private org.shelloid.common.messages.ShelloidMessageModel.MessageTypes type_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.NEW_MSG;
+      // required .MessageTypes type = 1;
+      private org.shelloid.common.messages.ShelloidMessageModel.MessageTypes type_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.OTHER_MESSAGES;
       /**
-       * <code>required .example.MessageTypes type = 1;</code>
+       * <code>required .MessageTypes type = 1;</code>
        */
       public boolean hasType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required .example.MessageTypes type = 1;</code>
+       * <code>required .MessageTypes type = 1;</code>
        */
       public org.shelloid.common.messages.ShelloidMessageModel.MessageTypes getType() {
         return type_;
       }
       /**
-       * <code>required .example.MessageTypes type = 1;</code>
+       * <code>required .MessageTypes type = 1;</code>
        */
       public Builder setType(org.shelloid.common.messages.ShelloidMessageModel.MessageTypes value) {
         if (value == null) {
@@ -2310,31 +2319,31 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>required .example.MessageTypes type = 1;</code>
+       * <code>required .MessageTypes type = 1;</code>
        */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        type_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.NEW_MSG;
+        type_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.OTHER_MESSAGES;
         onChanged();
         return this;
       }
 
-      // optional .example.MessageTypes subType = 2;
-      private org.shelloid.common.messages.ShelloidMessageModel.MessageTypes subType_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.NEW_MSG;
+      // optional .MessageTypes subType = 2;
+      private org.shelloid.common.messages.ShelloidMessageModel.MessageTypes subType_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.OTHER_MESSAGES;
       /**
-       * <code>optional .example.MessageTypes subType = 2;</code>
+       * <code>optional .MessageTypes subType = 2;</code>
        */
       public boolean hasSubType() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional .example.MessageTypes subType = 2;</code>
+       * <code>optional .MessageTypes subType = 2;</code>
        */
       public org.shelloid.common.messages.ShelloidMessageModel.MessageTypes getSubType() {
         return subType_;
       }
       /**
-       * <code>optional .example.MessageTypes subType = 2;</code>
+       * <code>optional .MessageTypes subType = 2;</code>
        */
       public Builder setSubType(org.shelloid.common.messages.ShelloidMessageModel.MessageTypes value) {
         if (value == null) {
@@ -2346,11 +2355,11 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>optional .example.MessageTypes subType = 2;</code>
+       * <code>optional .MessageTypes subType = 2;</code>
        */
       public Builder clearSubType() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        subType_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.NEW_MSG;
+        subType_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.OTHER_MESSAGES;
         onChanged();
         return this;
       }
@@ -3110,7 +3119,7 @@ public final class ShelloidMessageModel {
         return this;
       }
 
-      // repeated .example.PortMappingInfo guestPortMappings = 20;
+      // repeated .PortMappingInfo guestPortMappings = 20;
       private java.util.List<org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo> guestPortMappings_ =
         java.util.Collections.emptyList();
       private void ensureGuestPortMappingsIsMutable() {
@@ -3124,7 +3133,7 @@ public final class ShelloidMessageModel {
           org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder> guestPortMappingsBuilder_;
 
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public java.util.List<org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo> getGuestPortMappingsList() {
         if (guestPortMappingsBuilder_ == null) {
@@ -3134,7 +3143,7 @@ public final class ShelloidMessageModel {
         }
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public int getGuestPortMappingsCount() {
         if (guestPortMappingsBuilder_ == null) {
@@ -3144,7 +3153,7 @@ public final class ShelloidMessageModel {
         }
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo getGuestPortMappings(int index) {
         if (guestPortMappingsBuilder_ == null) {
@@ -3154,7 +3163,7 @@ public final class ShelloidMessageModel {
         }
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public Builder setGuestPortMappings(
           int index, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo value) {
@@ -3171,7 +3180,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public Builder setGuestPortMappings(
           int index, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder builderForValue) {
@@ -3185,7 +3194,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public Builder addGuestPortMappings(org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo value) {
         if (guestPortMappingsBuilder_ == null) {
@@ -3201,7 +3210,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public Builder addGuestPortMappings(
           int index, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo value) {
@@ -3218,7 +3227,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public Builder addGuestPortMappings(
           org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder builderForValue) {
@@ -3232,7 +3241,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public Builder addGuestPortMappings(
           int index, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder builderForValue) {
@@ -3246,7 +3255,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public Builder addAllGuestPortMappings(
           java.lang.Iterable<? extends org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo> values) {
@@ -3260,7 +3269,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public Builder clearGuestPortMappings() {
         if (guestPortMappingsBuilder_ == null) {
@@ -3273,7 +3282,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public Builder removeGuestPortMappings(int index) {
         if (guestPortMappingsBuilder_ == null) {
@@ -3286,14 +3295,14 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder getGuestPortMappingsBuilder(
           int index) {
         return getGuestPortMappingsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder getGuestPortMappingsOrBuilder(
           int index) {
@@ -3303,7 +3312,7 @@ public final class ShelloidMessageModel {
         }
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public java.util.List<? extends org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder> 
            getGuestPortMappingsOrBuilderList() {
@@ -3314,14 +3323,14 @@ public final class ShelloidMessageModel {
         }
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder addGuestPortMappingsBuilder() {
         return getGuestPortMappingsFieldBuilder().addBuilder(
             org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder addGuestPortMappingsBuilder(
           int index) {
@@ -3329,7 +3338,7 @@ public final class ShelloidMessageModel {
             index, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .example.PortMappingInfo guestPortMappings = 20;</code>
+       * <code>repeated .PortMappingInfo guestPortMappings = 20;</code>
        */
       public java.util.List<org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder> 
            getGuestPortMappingsBuilderList() {
@@ -3350,7 +3359,7 @@ public final class ShelloidMessageModel {
         return guestPortMappingsBuilder_;
       }
 
-      // repeated .example.PortMappingInfo hostPortMappings = 21;
+      // repeated .PortMappingInfo hostPortMappings = 21;
       private java.util.List<org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo> hostPortMappings_ =
         java.util.Collections.emptyList();
       private void ensureHostPortMappingsIsMutable() {
@@ -3364,7 +3373,7 @@ public final class ShelloidMessageModel {
           org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder> hostPortMappingsBuilder_;
 
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public java.util.List<org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo> getHostPortMappingsList() {
         if (hostPortMappingsBuilder_ == null) {
@@ -3374,7 +3383,7 @@ public final class ShelloidMessageModel {
         }
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public int getHostPortMappingsCount() {
         if (hostPortMappingsBuilder_ == null) {
@@ -3384,7 +3393,7 @@ public final class ShelloidMessageModel {
         }
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo getHostPortMappings(int index) {
         if (hostPortMappingsBuilder_ == null) {
@@ -3394,7 +3403,7 @@ public final class ShelloidMessageModel {
         }
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public Builder setHostPortMappings(
           int index, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo value) {
@@ -3411,7 +3420,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public Builder setHostPortMappings(
           int index, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder builderForValue) {
@@ -3425,7 +3434,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public Builder addHostPortMappings(org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo value) {
         if (hostPortMappingsBuilder_ == null) {
@@ -3441,7 +3450,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public Builder addHostPortMappings(
           int index, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo value) {
@@ -3458,7 +3467,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public Builder addHostPortMappings(
           org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder builderForValue) {
@@ -3472,7 +3481,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public Builder addHostPortMappings(
           int index, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder builderForValue) {
@@ -3486,7 +3495,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public Builder addAllHostPortMappings(
           java.lang.Iterable<? extends org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo> values) {
@@ -3500,7 +3509,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public Builder clearHostPortMappings() {
         if (hostPortMappingsBuilder_ == null) {
@@ -3513,7 +3522,7 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public Builder removeHostPortMappings(int index) {
         if (hostPortMappingsBuilder_ == null) {
@@ -3526,14 +3535,14 @@ public final class ShelloidMessageModel {
         return this;
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder getHostPortMappingsBuilder(
           int index) {
         return getHostPortMappingsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder getHostPortMappingsOrBuilder(
           int index) {
@@ -3543,7 +3552,7 @@ public final class ShelloidMessageModel {
         }
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public java.util.List<? extends org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder> 
            getHostPortMappingsOrBuilderList() {
@@ -3554,14 +3563,14 @@ public final class ShelloidMessageModel {
         }
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder addHostPortMappingsBuilder() {
         return getHostPortMappingsFieldBuilder().addBuilder(
             org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder addHostPortMappingsBuilder(
           int index) {
@@ -3569,7 +3578,7 @@ public final class ShelloidMessageModel {
             index, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.getDefaultInstance());
       }
       /**
-       * <code>repeated .example.PortMappingInfo hostPortMappings = 21;</code>
+       * <code>repeated .PortMappingInfo hostPortMappings = 21;</code>
        */
       public java.util.List<org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder> 
            getHostPortMappingsBuilderList() {
@@ -3903,7 +3912,7 @@ public final class ShelloidMessageModel {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:example.ShelloidMessage)
+      // @@protoc_insertion_point(builder_scope:ShelloidMessage)
     }
 
     static {
@@ -3911,7 +3920,7 @@ public final class ShelloidMessageModel {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:example.ShelloidMessage)
+    // @@protoc_insertion_point(class_scope:ShelloidMessage)
   }
 
   public interface PortMappingInfoOrBuilder
@@ -3948,7 +3957,7 @@ public final class ShelloidMessageModel {
     boolean getDisabled();
   }
   /**
-   * Protobuf type {@code example.PortMappingInfo}
+   * Protobuf type {@code PortMappingInfo}
    */
   public static final class PortMappingInfo extends
       com.google.protobuf.GeneratedMessage
@@ -4027,12 +4036,12 @@ public final class ShelloidMessageModel {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.shelloid.common.messages.ShelloidMessageModel.internal_static_example_PortMappingInfo_descriptor;
+      return org.shelloid.common.messages.ShelloidMessageModel.internal_static_PortMappingInfo_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.shelloid.common.messages.ShelloidMessageModel.internal_static_example_PortMappingInfo_fieldAccessorTable
+      return org.shelloid.common.messages.ShelloidMessageModel.internal_static_PortMappingInfo_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.class, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder.class);
     }
@@ -4239,19 +4248,19 @@ public final class ShelloidMessageModel {
       return builder;
     }
     /**
-     * Protobuf type {@code example.PortMappingInfo}
+     * Protobuf type {@code PortMappingInfo}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.shelloid.common.messages.ShelloidMessageModel.internal_static_example_PortMappingInfo_descriptor;
+        return org.shelloid.common.messages.ShelloidMessageModel.internal_static_PortMappingInfo_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.shelloid.common.messages.ShelloidMessageModel.internal_static_example_PortMappingInfo_fieldAccessorTable
+        return org.shelloid.common.messages.ShelloidMessageModel.internal_static_PortMappingInfo_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.class, org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo.Builder.class);
       }
@@ -4291,7 +4300,7 @@ public final class ShelloidMessageModel {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.shelloid.common.messages.ShelloidMessageModel.internal_static_example_PortMappingInfo_descriptor;
+        return org.shelloid.common.messages.ShelloidMessageModel.internal_static_PortMappingInfo_descriptor;
       }
 
       public org.shelloid.common.messages.ShelloidMessageModel.PortMappingInfo getDefaultInstanceForType() {
@@ -4485,7 +4494,7 @@ public final class ShelloidMessageModel {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:example.PortMappingInfo)
+      // @@protoc_insertion_point(builder_scope:PortMappingInfo)
     }
 
     static {
@@ -4493,19 +4502,19 @@ public final class ShelloidMessageModel {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:example.PortMappingInfo)
+    // @@protoc_insertion_point(class_scope:PortMappingInfo)
   }
 
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_example_ShelloidMessage_descriptor;
+    internal_static_ShelloidMessage_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_example_ShelloidMessage_fieldAccessorTable;
+      internal_static_ShelloidMessage_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_example_PortMappingInfo_descriptor;
+    internal_static_PortMappingInfo_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_example_PortMappingInfo_fieldAccessorTable;
+      internal_static_PortMappingInfo_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4515,50 +4524,50 @@ public final class ShelloidMessageModel {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rmessage.proto\022\007example\"\326\004\n\017ShelloidMes" +
-      "sage\022#\n\004type\030\001 \002(\0162\025.example.MessageType" +
-      "s\022&\n\007subType\030\002 \001(\0162\025.example.MessageType" +
-      "s\022\021\n\tdevice_id\030\003 \001(\003\022\016\n\006seqNum\030\004 \001(\003\022\013\n\003" +
-      "msg\030\005 \001(\t\022\013\n\003key\030\006 \001(\t\022\016\n\006secret\030\007 \001(\t\022\r" +
-      "\n\005users\030\t \003(\t\022\021\n\tportMapId\030\n \001(\003\022\021\n\tisSv" +
-      "cSide\030\013 \001(\010\022\023\n\013remoteDevId\030\014 \001(\003\022\017\n\007retr" +
-      "ies\030\r \001(\005\022\017\n\007svcPort\030\016 \001(\005\022\022\n\nmappedPort" +
-      "\030\017 \001(\005\022\014\n\004data\030\020 \001(\014\022\021\n\tagentPort\030\021 \001(\005\022" +
-      "\016\n\006connTs\030\022 \001(\003\022\017\n\007ctrlMsg\030\023 \001(\t\0223\n\021gues",
-      "tPortMappings\030\024 \003(\0132\030.example.PortMappin" +
-      "gInfo\0222\n\020hostPortMappings\030\025 \003(\0132\030.exampl" +
-      "e.PortMappingInfo\022\023\n\013srcDeviceId\030\026 \001(\003\022\014" +
-      "\n\004port\030\027 \001(\005\022\020\n\010disabled\030\030 \001(\010\022\017\n\007versio" +
-      "n\030\031 \001(\t\022\030\n\020resetLastSendAck\030\032 \001(\010\022\016\n\006nod" +
-      "eId\030\033 \001(\003\022\016\n\006action\030\034 \001(\t\"D\n\017PortMapping" +
-      "Info\022\014\n\004port\030\001 \002(\005\022\021\n\tportMapId\030\002 \002(\003\022\020\n" +
-      "\010disabled\030\003 \002(\010*\305\002\n\014MessageTypes\022\013\n\007NEW_" +
-      "MSG\020\001\022\007\n\003ACK\020\002\022\t\n\005ERROR\020\003\022\t\n\005NAUTH\020\004\022\013\n\007" +
-      "NODEMSG\020\005\022\n\n\006URGENT\020\010\022\n\n\006TUNNEL\020\022\022\022\n\016TUN",
-      "NEL_FORWARD\020\023\022\030\n\024TUNNEL_FORWARD_ERROR\020\024\022" +
-      "\023\n\017START_LISTENING\020\025\022\r\n\tOPEN_PORT\020\026\022\016\n\nC" +
-      "LOSE_PORT\020\027\022\017\n\013STOP_LISTEN\020\030\022\017\n\013PORT_OPE" +
-      "NED\020\031\022\025\n\021LISTENING_STARTED\020\032\022\025\n\021LISTENIN" +
-      "G_STOPPED\020\033\022\017\n\013PORT_CLOSED\020\034\022\023\n\017DEVICE_M" +
-      "APPINGS\020\035\022\014\n\010NO_ROUTE\020\036B4\n\034org.shelloid." +
-      "common.messagesB\024ShelloidMessageModel"
+      "\n\rmessage.proto\"\266\004\n\017ShelloidMessage\022\033\n\004t" +
+      "ype\030\001 \002(\0162\r.MessageTypes\022\036\n\007subType\030\002 \001(" +
+      "\0162\r.MessageTypes\022\021\n\tdevice_id\030\003 \001(\003\022\016\n\006s" +
+      "eqNum\030\004 \001(\003\022\013\n\003msg\030\005 \001(\t\022\013\n\003key\030\006 \001(\t\022\016\n" +
+      "\006secret\030\007 \001(\t\022\r\n\005users\030\t \003(\t\022\021\n\tportMapI" +
+      "d\030\n \001(\003\022\021\n\tisSvcSide\030\013 \001(\010\022\023\n\013remoteDevI" +
+      "d\030\014 \001(\003\022\017\n\007retries\030\r \001(\005\022\017\n\007svcPort\030\016 \001(" +
+      "\005\022\022\n\nmappedPort\030\017 \001(\005\022\014\n\004data\030\020 \001(\014\022\021\n\ta" +
+      "gentPort\030\021 \001(\005\022\016\n\006connTs\030\022 \001(\003\022\017\n\007ctrlMs" +
+      "g\030\023 \001(\t\022+\n\021guestPortMappings\030\024 \003(\0132\020.Por",
+      "tMappingInfo\022*\n\020hostPortMappings\030\025 \003(\0132\020" +
+      ".PortMappingInfo\022\023\n\013srcDeviceId\030\026 \001(\003\022\014\n" +
+      "\004port\030\027 \001(\005\022\020\n\010disabled\030\030 \001(\010\022\017\n\007version" +
+      "\030\031 \001(\t\022\030\n\020resetLastSendAck\030\032 \001(\010\022\016\n\006node" +
+      "Id\030\033 \001(\003\022\016\n\006action\030\034 \001(\t\"D\n\017PortMappingI" +
+      "nfo\022\014\n\004port\030\001 \002(\005\022\021\n\tportMapId\030\002 \002(\003\022\020\n\010" +
+      "disabled\030\003 \002(\010*\331\002\n\014MessageTypes\022\022\n\016OTHER" +
+      "_MESSAGES\020\000\022\013\n\007NEW_MSG\020\001\022\007\n\003ACK\020\002\022\t\n\005ERR" +
+      "OR\020\003\022\t\n\005NAUTH\020\004\022\013\n\007NODEMSG\020\005\022\n\n\006URGENT\020\010" +
+      "\022\n\n\006TUNNEL\020\022\022\022\n\016TUNNEL_FORWARD\020\023\022\030\n\024TUNN",
+      "EL_FORWARD_ERROR\020\024\022\023\n\017START_LISTENING\020\025\022" +
+      "\r\n\tOPEN_PORT\020\026\022\016\n\nCLOSE_PORT\020\027\022\017\n\013STOP_L" +
+      "ISTEN\020\030\022\017\n\013PORT_OPENED\020\031\022\025\n\021LISTENING_ST" +
+      "ARTED\020\032\022\025\n\021LISTENING_STOPPED\020\033\022\017\n\013PORT_C" +
+      "LOSED\020\034\022\023\n\017DEVICE_MAPPINGS\020\035\022\014\n\010NO_ROUTE" +
+      "\020\036B4\n\034org.shelloid.common.messagesB\024Shel" +
+      "loidMessageModel"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
-          internal_static_example_ShelloidMessage_descriptor =
+          internal_static_ShelloidMessage_descriptor =
             getDescriptor().getMessageTypes().get(0);
-          internal_static_example_ShelloidMessage_fieldAccessorTable = new
+          internal_static_ShelloidMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_example_ShelloidMessage_descriptor,
+              internal_static_ShelloidMessage_descriptor,
               new java.lang.String[] { "Type", "SubType", "DeviceId", "SeqNum", "Msg", "Key", "Secret", "Users", "PortMapId", "IsSvcSide", "RemoteDevId", "Retries", "SvcPort", "MappedPort", "Data", "AgentPort", "ConnTs", "CtrlMsg", "GuestPortMappings", "HostPortMappings", "SrcDeviceId", "Port", "Disabled", "Version", "ResetLastSendAck", "NodeId", "Action", });
-          internal_static_example_PortMappingInfo_descriptor =
+          internal_static_PortMappingInfo_descriptor =
             getDescriptor().getMessageTypes().get(1);
-          internal_static_example_PortMappingInfo_fieldAccessorTable = new
+          internal_static_PortMappingInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_example_PortMappingInfo_descriptor,
+              internal_static_PortMappingInfo_descriptor,
               new java.lang.String[] { "Port", "PortMapId", "Disabled", });
           return null;
         }
