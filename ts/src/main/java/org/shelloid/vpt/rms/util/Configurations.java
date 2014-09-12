@@ -21,6 +21,7 @@ public class Configurations {
     public static long RX_TX_WINDOW_SIZE_MS;
     public static int MAX_REDIS_CONNECTIONS = 128;
     public static int TUNNEL_FORWARD_MAX_RETTRY_CNT = 3;
+    public static double MIN_COMPATIBLE_AGENT_VERSION = 3.0;
     public static String SERVER_IP;
     
     static {
@@ -37,6 +38,7 @@ public class Configurations {
         defaultProps.put(ConfigParams.SERVER_SECRET.toString(), "serversecret");
         defaultProps.put(ConfigParams.TUNNEL_FORWARD_MAX_RETTRY_CNT.toString(), "3");
         defaultProps.put(ConfigParams.RELIABLE_MESSENGER_MAX_CONCURRENT_FRAMES.toString(), "1");
+        defaultProps.put(ConfigParams.AGENT_MIN_COMPATIBLE_VERSION.toString(), "3.0");
         props = new Properties(defaultProps);
     }
 
@@ -46,6 +48,7 @@ public class Configurations {
         RX_TX_WINDOW_SIZE_MS = Long.parseLong(get(Configurations.ConfigParams.RX_TX_WINDOW_SIZE_SECS)) * 1000;
         SERVER_IP = get(Configurations.ConfigParams.SERVER_IP);
         TUNNEL_FORWARD_MAX_RETTRY_CNT = Integer.parseInt(get(Configurations.ConfigParams.TUNNEL_FORWARD_MAX_RETTRY_CNT));
+        MIN_COMPATIBLE_AGENT_VERSION = Double.parseDouble(get(Configurations.ConfigParams.AGENT_MIN_COMPATIBLE_VERSION));
     }
 
     public static String get(ConfigParams key) {
@@ -80,7 +83,8 @@ public class Configurations {
         CHAIN_FILE("cert.chainFile"),
         KEY_FILE("cert.keyFile"),
         ADDON_CLASSNAME("addon.className"),
-        ADDON_JARNAME("addon.jarName");
+        ADDON_JARNAME("addon.jarName"),
+        AGENT_MIN_COMPATIBLE_VERSION("agent.minCompatibleVersion");
         private final String text;
 
         private ConfigParams(final String text) {

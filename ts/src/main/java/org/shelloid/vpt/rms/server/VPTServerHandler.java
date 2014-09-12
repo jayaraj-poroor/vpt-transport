@@ -441,34 +441,39 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
         Connection conn = null;
         Jedis jedis = null;
         try {
-            jedis = platform.getRedisConnection();
-            conn = platform.getDbConnection();
             Long devId = ch.attr(CONNECTION_MAPPING).get();
-            ch.attr(RXTX_STATS).set(new RxTxStats());
-            ConnectionMetadata cm = new ConnectionMetadata(devId + "", new Date().getTime(), ch);
-            messenger.putDevice(devId, cm);
-            if (shdMx != null) {
-                shdMx.onAgentAuth(cm, devId, Configurations.SERVER_IP);
-            }
-            jedis.hset("deviceMap", devId + "", Configurations.SERVER_IP);
-            ArrayList<String> list = new ArrayList<>();
-            list.add("*");
-            byte [] nodeStatusMessage = getNodeStatusMsg(devId, MessageValues.C, list);
-            jedis.publish("nodeStatus:" + devId, HelperFunctions.toHexString(nodeStatusMessage, 0, nodeStatusMessage.length));
-            long lastSendAck = -1;
-            if (resetLastSendAck) {
-                Platform.shelloidLogger.warn("Resetting last sent ack for " + devId);
-                messenger.updateLastSendAckInRedis(jedis, devId, -1);
+            double ver = Double.parseDouble(version.substring(0, 2));
+            if (ver < Configurations.MIN_COMPATIBLE_AGENT_VERSION){
+                throw new ShelloidNonRetriableException("Device with ID " + devId + " is trying to connect with incompatible version ("+version+")");
             } else {
-                lastSendAck = messenger.getLastSendAckFromRedis(jedis, devId);
+                jedis = platform.getRedisConnection();
+                conn = platform.getDbConnection();
+                ch.attr(RXTX_STATS).set(new RxTxStats());
+                ConnectionMetadata cm = new ConnectionMetadata(devId + "", new Date().getTime(), ch);
+                messenger.putDevice(devId, cm);
+                if (shdMx != null) {
+                    shdMx.onAgentAuth(cm, devId, Configurations.SERVER_IP);
+                }
+                jedis.hset("deviceMap", devId + "", Configurations.SERVER_IP);
+                ArrayList<String> list = new ArrayList<>();
+                list.add("*");
+                byte [] nodeStatusMessage = getNodeStatusMsg(devId, MessageValues.C, list);
+                jedis.publish("nodeStatus:" + devId, HelperFunctions.toHexString(nodeStatusMessage, 0, nodeStatusMessage.length));
+                long lastSendAck = -1;
+                if (resetLastSendAck) {
+                    Platform.shelloidLogger.warn("Resetting last sent ack for " + devId);
+                    messenger.updateLastSendAckInRedis(jedis, devId, -1);
+                } else {
+                    lastSendAck = messenger.getLastSendAckFromRedis(jedis, devId);
+                }
+                sendAckToDevice(lastSendAck, ch);
+                sendPortmapInfoToDeviceOnAuth(jedis, conn, devId, ch);
+                Database.doUpdate(conn, "UPDATE devices SET status='C', version = ?, last_connection_ts = CURRENT_TIMESTAMP WHERE id = ?", new Object[]{version, devId});
+                Database.doUpdate(conn, "DELETE FROM device_updates WHERE updateType = 'nodeStatus' AND refId = ? AND (status = 'C' OR status = 'D')", new Object[]{devId});
+                Database.doUpdate(conn, "INSERT INTO device_updates (updateType, refId, update_ts, status) VALUES ('nodeStatus', ?, CURRENT_TIMESTAMP, ?)", new Object[]{devId, "C"});
+                App.queryNewMsgs(devId);
+                Platform.shelloidLogger.warn("Agent " + devId + " connected via " + ch);
             }
-            sendAckToDevice(lastSendAck, ch);
-            sendPortmapInfoToDeviceOnAuth(jedis, conn, devId, ch);
-            Database.doUpdate(conn, "UPDATE devices SET status='C', version = ?, last_connection_ts = CURRENT_TIMESTAMP WHERE id = ?", new Object[]{version, devId});
-            Database.doUpdate(conn, "DELETE FROM device_updates WHERE updateType = 'nodeStatus' AND refId = ? AND (status = 'C' OR status = 'D')", new Object[]{devId});
-            Database.doUpdate(conn, "INSERT INTO device_updates (updateType, refId, update_ts, status) VALUES ('nodeStatus', ?, CURRENT_TIMESTAMP, ?)", new Object[]{devId, "C"});
-            App.queryNewMsgs(devId);
-            Platform.shelloidLogger.warn("Agent " + devId + " connected via " + ch);
         } finally {
             if (jedis != null) {
                 platform.returnJedis(jedis);
