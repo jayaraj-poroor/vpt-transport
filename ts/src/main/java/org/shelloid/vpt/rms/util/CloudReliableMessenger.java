@@ -27,8 +27,8 @@ import redis.clients.jedis.*;
 /* @author Harikrishnan */
 public class CloudReliableMessenger {
 
-    private static final ConcurrentHashMap<String, ConnectionMetadata> serverMap = new ConcurrentHashMap<>();
-    private static final ConcurrentHashMap<Long, ConnectionMetadata> connectedDevicesMap = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, ConnectionMetadata> serverMap = new ConcurrentHashMap<String, ConnectionMetadata>();
+    private static final ConcurrentHashMap<Long, ConnectionMetadata> connectedDevicesMap = new ConcurrentHashMap<Long, ConnectionMetadata>();
 
     private static final CloudReliableMessenger messager = new CloudReliableMessenger();
 
@@ -127,7 +127,7 @@ public class CloudReliableMessenger {
         long clientId = Long.parseLong(conn.getClientId());
         String queueKey = "mq-node" + clientId;
         String storeKey = "ms-node" + clientId;
-        ArrayList<String> ackSeqNums = new ArrayList<>();
+        ArrayList<String> ackSeqNums = new ArrayList<String>();
         String seqNumToSend = null;
         synchronized(conn){
             List<String> queuedSeqnums = jedis.lrange(queueKey, 0, Integer.MAX_VALUE);

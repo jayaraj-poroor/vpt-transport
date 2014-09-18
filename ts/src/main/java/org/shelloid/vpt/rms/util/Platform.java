@@ -33,7 +33,7 @@ public class Platform {
         redisPool = configRedisPool();
         dbConnPool = configDbPool();
         threadPool = Executors.newCachedThreadPool();
-        streamPublishList = new HashMap<>();
+        streamPublishList = new HashMap<String, Integer>();
     }
 
     public static Platform getInstance() {

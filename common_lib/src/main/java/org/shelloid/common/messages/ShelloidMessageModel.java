@@ -594,6 +594,51 @@ public final class ShelloidMessageModel {
      */
     com.google.protobuf.ByteString
         getActionBytes();
+
+    // optional string appName = 29;
+    /**
+     * <code>optional string appName = 29;</code>
+     */
+    boolean hasAppName();
+    /**
+     * <code>optional string appName = 29;</code>
+     */
+    java.lang.String getAppName();
+    /**
+     * <code>optional string appName = 29;</code>
+     */
+    com.google.protobuf.ByteString
+        getAppNameBytes();
+
+    // optional string credential_text = 30;
+    /**
+     * <code>optional string credential_text = 30;</code>
+     */
+    boolean hasCredentialText();
+    /**
+     * <code>optional string credential_text = 30;</code>
+     */
+    java.lang.String getCredentialText();
+    /**
+     * <code>optional string credential_text = 30;</code>
+     */
+    com.google.protobuf.ByteString
+        getCredentialTextBytes();
+
+    // optional string policy_text = 31;
+    /**
+     * <code>optional string policy_text = 31;</code>
+     */
+    boolean hasPolicyText();
+    /**
+     * <code>optional string policy_text = 31;</code>
+     */
+    java.lang.String getPolicyText();
+    /**
+     * <code>optional string policy_text = 31;</code>
+     */
+    com.google.protobuf.ByteString
+        getPolicyTextBytes();
   }
   /**
    * Protobuf type {@code ShelloidMessage}
@@ -800,6 +845,21 @@ public final class ShelloidMessageModel {
             case 226: {
               bitField0_ |= 0x00800000;
               action_ = input.readBytes();
+              break;
+            }
+            case 234: {
+              bitField0_ |= 0x01000000;
+              appName_ = input.readBytes();
+              break;
+            }
+            case 242: {
+              bitField0_ |= 0x02000000;
+              credentialText_ = input.readBytes();
+              break;
+            }
+            case 250: {
+              bitField0_ |= 0x04000000;
+              policyText_ = input.readBytes();
               break;
             }
           }
@@ -1499,6 +1559,135 @@ public final class ShelloidMessageModel {
       }
     }
 
+    // optional string appName = 29;
+    public static final int APPNAME_FIELD_NUMBER = 29;
+    private java.lang.Object appName_;
+    /**
+     * <code>optional string appName = 29;</code>
+     */
+    public boolean hasAppName() {
+      return ((bitField0_ & 0x01000000) == 0x01000000);
+    }
+    /**
+     * <code>optional string appName = 29;</code>
+     */
+    public java.lang.String getAppName() {
+      java.lang.Object ref = appName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          appName_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string appName = 29;</code>
+     */
+    public com.google.protobuf.ByteString
+        getAppNameBytes() {
+      java.lang.Object ref = appName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        appName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional string credential_text = 30;
+    public static final int CREDENTIAL_TEXT_FIELD_NUMBER = 30;
+    private java.lang.Object credentialText_;
+    /**
+     * <code>optional string credential_text = 30;</code>
+     */
+    public boolean hasCredentialText() {
+      return ((bitField0_ & 0x02000000) == 0x02000000);
+    }
+    /**
+     * <code>optional string credential_text = 30;</code>
+     */
+    public java.lang.String getCredentialText() {
+      java.lang.Object ref = credentialText_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          credentialText_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string credential_text = 30;</code>
+     */
+    public com.google.protobuf.ByteString
+        getCredentialTextBytes() {
+      java.lang.Object ref = credentialText_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        credentialText_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional string policy_text = 31;
+    public static final int POLICY_TEXT_FIELD_NUMBER = 31;
+    private java.lang.Object policyText_;
+    /**
+     * <code>optional string policy_text = 31;</code>
+     */
+    public boolean hasPolicyText() {
+      return ((bitField0_ & 0x04000000) == 0x04000000);
+    }
+    /**
+     * <code>optional string policy_text = 31;</code>
+     */
+    public java.lang.String getPolicyText() {
+      java.lang.Object ref = policyText_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          policyText_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string policy_text = 31;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPolicyTextBytes() {
+      java.lang.Object ref = policyText_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        policyText_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       type_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.OTHER_MESSAGES;
       subType_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.OTHER_MESSAGES;
@@ -1527,6 +1716,9 @@ public final class ShelloidMessageModel {
       resetLastSendAck_ = false;
       nodeId_ = 0L;
       action_ = "";
+      appName_ = "";
+      credentialText_ = "";
+      policyText_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1636,6 +1828,15 @@ public final class ShelloidMessageModel {
       }
       if (((bitField0_ & 0x00800000) == 0x00800000)) {
         output.writeBytes(28, getActionBytes());
+      }
+      if (((bitField0_ & 0x01000000) == 0x01000000)) {
+        output.writeBytes(29, getAppNameBytes());
+      }
+      if (((bitField0_ & 0x02000000) == 0x02000000)) {
+        output.writeBytes(30, getCredentialTextBytes());
+      }
+      if (((bitField0_ & 0x04000000) == 0x04000000)) {
+        output.writeBytes(31, getPolicyTextBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -1758,6 +1959,18 @@ public final class ShelloidMessageModel {
       if (((bitField0_ & 0x00800000) == 0x00800000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(28, getActionBytes());
+      }
+      if (((bitField0_ & 0x01000000) == 0x01000000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(29, getAppNameBytes());
+      }
+      if (((bitField0_ & 0x02000000) == 0x02000000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(30, getCredentialTextBytes());
+      }
+      if (((bitField0_ & 0x04000000) == 0x04000000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(31, getPolicyTextBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1939,6 +2152,12 @@ public final class ShelloidMessageModel {
         bitField0_ = (bitField0_ & ~0x02000000);
         action_ = "";
         bitField0_ = (bitField0_ & ~0x04000000);
+        appName_ = "";
+        bitField0_ = (bitField0_ & ~0x08000000);
+        credentialText_ = "";
+        bitField0_ = (bitField0_ & ~0x10000000);
+        policyText_ = "";
+        bitField0_ = (bitField0_ & ~0x20000000);
         return this;
       }
 
@@ -2087,6 +2306,18 @@ public final class ShelloidMessageModel {
           to_bitField0_ |= 0x00800000;
         }
         result.action_ = action_;
+        if (((from_bitField0_ & 0x08000000) == 0x08000000)) {
+          to_bitField0_ |= 0x01000000;
+        }
+        result.appName_ = appName_;
+        if (((from_bitField0_ & 0x10000000) == 0x10000000)) {
+          to_bitField0_ |= 0x02000000;
+        }
+        result.credentialText_ = credentialText_;
+        if (((from_bitField0_ & 0x20000000) == 0x20000000)) {
+          to_bitField0_ |= 0x04000000;
+        }
+        result.policyText_ = policyText_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2247,6 +2478,21 @@ public final class ShelloidMessageModel {
         if (other.hasAction()) {
           bitField0_ |= 0x04000000;
           action_ = other.action_;
+          onChanged();
+        }
+        if (other.hasAppName()) {
+          bitField0_ |= 0x08000000;
+          appName_ = other.appName_;
+          onChanged();
+        }
+        if (other.hasCredentialText()) {
+          bitField0_ |= 0x10000000;
+          credentialText_ = other.credentialText_;
+          onChanged();
+        }
+        if (other.hasPolicyText()) {
+          bitField0_ |= 0x20000000;
+          policyText_ = other.policyText_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -3912,6 +4158,228 @@ public final class ShelloidMessageModel {
         return this;
       }
 
+      // optional string appName = 29;
+      private java.lang.Object appName_ = "";
+      /**
+       * <code>optional string appName = 29;</code>
+       */
+      public boolean hasAppName() {
+        return ((bitField0_ & 0x08000000) == 0x08000000);
+      }
+      /**
+       * <code>optional string appName = 29;</code>
+       */
+      public java.lang.String getAppName() {
+        java.lang.Object ref = appName_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          appName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string appName = 29;</code>
+       */
+      public com.google.protobuf.ByteString
+          getAppNameBytes() {
+        java.lang.Object ref = appName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          appName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string appName = 29;</code>
+       */
+      public Builder setAppName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x08000000;
+        appName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string appName = 29;</code>
+       */
+      public Builder clearAppName() {
+        bitField0_ = (bitField0_ & ~0x08000000);
+        appName_ = getDefaultInstance().getAppName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string appName = 29;</code>
+       */
+      public Builder setAppNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x08000000;
+        appName_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional string credential_text = 30;
+      private java.lang.Object credentialText_ = "";
+      /**
+       * <code>optional string credential_text = 30;</code>
+       */
+      public boolean hasCredentialText() {
+        return ((bitField0_ & 0x10000000) == 0x10000000);
+      }
+      /**
+       * <code>optional string credential_text = 30;</code>
+       */
+      public java.lang.String getCredentialText() {
+        java.lang.Object ref = credentialText_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          credentialText_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string credential_text = 30;</code>
+       */
+      public com.google.protobuf.ByteString
+          getCredentialTextBytes() {
+        java.lang.Object ref = credentialText_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          credentialText_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string credential_text = 30;</code>
+       */
+      public Builder setCredentialText(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x10000000;
+        credentialText_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string credential_text = 30;</code>
+       */
+      public Builder clearCredentialText() {
+        bitField0_ = (bitField0_ & ~0x10000000);
+        credentialText_ = getDefaultInstance().getCredentialText();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string credential_text = 30;</code>
+       */
+      public Builder setCredentialTextBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x10000000;
+        credentialText_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional string policy_text = 31;
+      private java.lang.Object policyText_ = "";
+      /**
+       * <code>optional string policy_text = 31;</code>
+       */
+      public boolean hasPolicyText() {
+        return ((bitField0_ & 0x20000000) == 0x20000000);
+      }
+      /**
+       * <code>optional string policy_text = 31;</code>
+       */
+      public java.lang.String getPolicyText() {
+        java.lang.Object ref = policyText_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          policyText_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string policy_text = 31;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPolicyTextBytes() {
+        java.lang.Object ref = policyText_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          policyText_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string policy_text = 31;</code>
+       */
+      public Builder setPolicyText(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x20000000;
+        policyText_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string policy_text = 31;</code>
+       */
+      public Builder clearPolicyText() {
+        bitField0_ = (bitField0_ & ~0x20000000);
+        policyText_ = getDefaultInstance().getPolicyText();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string policy_text = 31;</code>
+       */
+      public Builder setPolicyTextBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x20000000;
+        policyText_ = value;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:ShelloidMessage)
     }
 
@@ -3955,6 +4423,51 @@ public final class ShelloidMessageModel {
      * <code>required bool disabled = 3;</code>
      */
     boolean getDisabled();
+
+    // optional string policy_text = 4;
+    /**
+     * <code>optional string policy_text = 4;</code>
+     */
+    boolean hasPolicyText();
+    /**
+     * <code>optional string policy_text = 4;</code>
+     */
+    java.lang.String getPolicyText();
+    /**
+     * <code>optional string policy_text = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getPolicyTextBytes();
+
+    // optional string appName = 5;
+    /**
+     * <code>optional string appName = 5;</code>
+     */
+    boolean hasAppName();
+    /**
+     * <code>optional string appName = 5;</code>
+     */
+    java.lang.String getAppName();
+    /**
+     * <code>optional string appName = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getAppNameBytes();
+
+    // optional string credential_text = 6;
+    /**
+     * <code>optional string credential_text = 6;</code>
+     */
+    boolean hasCredentialText();
+    /**
+     * <code>optional string credential_text = 6;</code>
+     */
+    java.lang.String getCredentialText();
+    /**
+     * <code>optional string credential_text = 6;</code>
+     */
+    com.google.protobuf.ByteString
+        getCredentialTextBytes();
   }
   /**
    * Protobuf type {@code PortMappingInfo}
@@ -4020,6 +4533,21 @@ public final class ShelloidMessageModel {
             case 24: {
               bitField0_ |= 0x00000004;
               disabled_ = input.readBool();
+              break;
+            }
+            case 34: {
+              bitField0_ |= 0x00000008;
+              policyText_ = input.readBytes();
+              break;
+            }
+            case 42: {
+              bitField0_ |= 0x00000010;
+              appName_ = input.readBytes();
+              break;
+            }
+            case 50: {
+              bitField0_ |= 0x00000020;
+              credentialText_ = input.readBytes();
               break;
             }
           }
@@ -4110,10 +4638,142 @@ public final class ShelloidMessageModel {
       return disabled_;
     }
 
+    // optional string policy_text = 4;
+    public static final int POLICY_TEXT_FIELD_NUMBER = 4;
+    private java.lang.Object policyText_;
+    /**
+     * <code>optional string policy_text = 4;</code>
+     */
+    public boolean hasPolicyText() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional string policy_text = 4;</code>
+     */
+    public java.lang.String getPolicyText() {
+      java.lang.Object ref = policyText_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          policyText_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string policy_text = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPolicyTextBytes() {
+      java.lang.Object ref = policyText_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        policyText_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional string appName = 5;
+    public static final int APPNAME_FIELD_NUMBER = 5;
+    private java.lang.Object appName_;
+    /**
+     * <code>optional string appName = 5;</code>
+     */
+    public boolean hasAppName() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional string appName = 5;</code>
+     */
+    public java.lang.String getAppName() {
+      java.lang.Object ref = appName_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          appName_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string appName = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getAppNameBytes() {
+      java.lang.Object ref = appName_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        appName_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional string credential_text = 6;
+    public static final int CREDENTIAL_TEXT_FIELD_NUMBER = 6;
+    private java.lang.Object credentialText_;
+    /**
+     * <code>optional string credential_text = 6;</code>
+     */
+    public boolean hasCredentialText() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>optional string credential_text = 6;</code>
+     */
+    public java.lang.String getCredentialText() {
+      java.lang.Object ref = credentialText_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          credentialText_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string credential_text = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getCredentialTextBytes() {
+      java.lang.Object ref = credentialText_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        credentialText_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       port_ = 0;
       portMapId_ = 0L;
       disabled_ = false;
+      policyText_ = "";
+      appName_ = "";
+      credentialText_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -4148,6 +4808,15 @@ public final class ShelloidMessageModel {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         output.writeBool(3, disabled_);
       }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeBytes(4, getPolicyTextBytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBytes(5, getAppNameBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeBytes(6, getCredentialTextBytes());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -4168,6 +4837,18 @@ public final class ShelloidMessageModel {
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(3, disabled_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(4, getPolicyTextBytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(5, getAppNameBytes());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, getCredentialTextBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4291,6 +4972,12 @@ public final class ShelloidMessageModel {
         bitField0_ = (bitField0_ & ~0x00000002);
         disabled_ = false;
         bitField0_ = (bitField0_ & ~0x00000004);
+        policyText_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
+        appName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000010);
+        credentialText_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -4331,6 +5018,18 @@ public final class ShelloidMessageModel {
           to_bitField0_ |= 0x00000004;
         }
         result.disabled_ = disabled_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.policyText_ = policyText_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.appName_ = appName_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.credentialText_ = credentialText_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4355,6 +5054,21 @@ public final class ShelloidMessageModel {
         }
         if (other.hasDisabled()) {
           setDisabled(other.getDisabled());
+        }
+        if (other.hasPolicyText()) {
+          bitField0_ |= 0x00000008;
+          policyText_ = other.policyText_;
+          onChanged();
+        }
+        if (other.hasAppName()) {
+          bitField0_ |= 0x00000010;
+          appName_ = other.appName_;
+          onChanged();
+        }
+        if (other.hasCredentialText()) {
+          bitField0_ |= 0x00000020;
+          credentialText_ = other.credentialText_;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -4494,6 +5208,228 @@ public final class ShelloidMessageModel {
         return this;
       }
 
+      // optional string policy_text = 4;
+      private java.lang.Object policyText_ = "";
+      /**
+       * <code>optional string policy_text = 4;</code>
+       */
+      public boolean hasPolicyText() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional string policy_text = 4;</code>
+       */
+      public java.lang.String getPolicyText() {
+        java.lang.Object ref = policyText_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          policyText_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string policy_text = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPolicyTextBytes() {
+        java.lang.Object ref = policyText_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          policyText_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string policy_text = 4;</code>
+       */
+      public Builder setPolicyText(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        policyText_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string policy_text = 4;</code>
+       */
+      public Builder clearPolicyText() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        policyText_ = getDefaultInstance().getPolicyText();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string policy_text = 4;</code>
+       */
+      public Builder setPolicyTextBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        policyText_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional string appName = 5;
+      private java.lang.Object appName_ = "";
+      /**
+       * <code>optional string appName = 5;</code>
+       */
+      public boolean hasAppName() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>optional string appName = 5;</code>
+       */
+      public java.lang.String getAppName() {
+        java.lang.Object ref = appName_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          appName_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string appName = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getAppNameBytes() {
+        java.lang.Object ref = appName_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          appName_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string appName = 5;</code>
+       */
+      public Builder setAppName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        appName_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string appName = 5;</code>
+       */
+      public Builder clearAppName() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        appName_ = getDefaultInstance().getAppName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string appName = 5;</code>
+       */
+      public Builder setAppNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        appName_ = value;
+        onChanged();
+        return this;
+      }
+
+      // optional string credential_text = 6;
+      private java.lang.Object credentialText_ = "";
+      /**
+       * <code>optional string credential_text = 6;</code>
+       */
+      public boolean hasCredentialText() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>optional string credential_text = 6;</code>
+       */
+      public java.lang.String getCredentialText() {
+        java.lang.Object ref = credentialText_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          credentialText_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string credential_text = 6;</code>
+       */
+      public com.google.protobuf.ByteString
+          getCredentialTextBytes() {
+        java.lang.Object ref = credentialText_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          credentialText_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string credential_text = 6;</code>
+       */
+      public Builder setCredentialText(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        credentialText_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string credential_text = 6;</code>
+       */
+      public Builder clearCredentialText() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        credentialText_ = getDefaultInstance().getCredentialText();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string credential_text = 6;</code>
+       */
+      public Builder setCredentialTextBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        credentialText_ = value;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:PortMappingInfo)
     }
 
@@ -4524,7 +5460,7 @@ public final class ShelloidMessageModel {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rmessage.proto\"\266\004\n\017ShelloidMessage\022\033\n\004t" +
+      "\n\rmessage.proto\"\365\004\n\017ShelloidMessage\022\033\n\004t" +
       "ype\030\001 \002(\0162\r.MessageTypes\022\036\n\007subType\030\002 \001(" +
       "\0162\r.MessageTypes\022\021\n\tdevice_id\030\003 \001(\003\022\016\n\006s" +
       "eqNum\030\004 \001(\003\022\013\n\003msg\030\005 \001(\t\022\013\n\003key\030\006 \001(\t\022\016\n" +
@@ -4538,19 +5474,22 @@ public final class ShelloidMessageModel {
       ".PortMappingInfo\022\023\n\013srcDeviceId\030\026 \001(\003\022\014\n" +
       "\004port\030\027 \001(\005\022\020\n\010disabled\030\030 \001(\010\022\017\n\007version" +
       "\030\031 \001(\t\022\030\n\020resetLastSendAck\030\032 \001(\010\022\016\n\006node" +
-      "Id\030\033 \001(\003\022\016\n\006action\030\034 \001(\t\"D\n\017PortMappingI" +
-      "nfo\022\014\n\004port\030\001 \002(\005\022\021\n\tportMapId\030\002 \002(\003\022\020\n\010" +
-      "disabled\030\003 \002(\010*\331\002\n\014MessageTypes\022\022\n\016OTHER" +
-      "_MESSAGES\020\000\022\013\n\007NEW_MSG\020\001\022\007\n\003ACK\020\002\022\t\n\005ERR" +
-      "OR\020\003\022\t\n\005NAUTH\020\004\022\013\n\007NODEMSG\020\005\022\n\n\006URGENT\020\010" +
-      "\022\n\n\006TUNNEL\020\022\022\022\n\016TUNNEL_FORWARD\020\023\022\030\n\024TUNN",
-      "EL_FORWARD_ERROR\020\024\022\023\n\017START_LISTENING\020\025\022" +
-      "\r\n\tOPEN_PORT\020\026\022\016\n\nCLOSE_PORT\020\027\022\017\n\013STOP_L" +
-      "ISTEN\020\030\022\017\n\013PORT_OPENED\020\031\022\025\n\021LISTENING_ST" +
-      "ARTED\020\032\022\025\n\021LISTENING_STOPPED\020\033\022\017\n\013PORT_C" +
-      "LOSED\020\034\022\023\n\017DEVICE_MAPPINGS\020\035\022\014\n\010NO_ROUTE" +
-      "\020\036B4\n\034org.shelloid.common.messagesB\024Shel" +
-      "loidMessageModel"
+      "Id\030\033 \001(\003\022\016\n\006action\030\034 \001(\t\022\017\n\007appName\030\035 \001(" +
+      "\t\022\027\n\017credential_text\030\036 \001(\t\022\023\n\013policy_tex" +
+      "t\030\037 \001(\t\"\203\001\n\017PortMappingInfo\022\014\n\004port\030\001 \002(" +
+      "\005\022\021\n\tportMapId\030\002 \002(\003\022\020\n\010disabled\030\003 \002(\010\022\023" +
+      "\n\013policy_text\030\004 \001(\t\022\017\n\007appName\030\005 \001(\t\022\027\n\017" +
+      "credential_text\030\006 \001(\t*\331\002\n\014MessageTypes\022\022",
+      "\n\016OTHER_MESSAGES\020\000\022\013\n\007NEW_MSG\020\001\022\007\n\003ACK\020\002" +
+      "\022\t\n\005ERROR\020\003\022\t\n\005NAUTH\020\004\022\013\n\007NODEMSG\020\005\022\n\n\006U" +
+      "RGENT\020\010\022\n\n\006TUNNEL\020\022\022\022\n\016TUNNEL_FORWARD\020\023\022" +
+      "\030\n\024TUNNEL_FORWARD_ERROR\020\024\022\023\n\017START_LISTE" +
+      "NING\020\025\022\r\n\tOPEN_PORT\020\026\022\016\n\nCLOSE_PORT\020\027\022\017\n" +
+      "\013STOP_LISTEN\020\030\022\017\n\013PORT_OPENED\020\031\022\025\n\021LISTE" +
+      "NING_STARTED\020\032\022\025\n\021LISTENING_STOPPED\020\033\022\017\n" +
+      "\013PORT_CLOSED\020\034\022\023\n\017DEVICE_MAPPINGS\020\035\022\014\n\010N" +
+      "O_ROUTE\020\036B4\n\034org.shelloid.common.message" +
+      "sB\024ShelloidMessageModel"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -4562,13 +5501,13 @@ public final class ShelloidMessageModel {
           internal_static_ShelloidMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ShelloidMessage_descriptor,
-              new java.lang.String[] { "Type", "SubType", "DeviceId", "SeqNum", "Msg", "Key", "Secret", "Users", "PortMapId", "IsSvcSide", "RemoteDevId", "Retries", "SvcPort", "MappedPort", "Data", "AgentPort", "ConnTs", "CtrlMsg", "GuestPortMappings", "HostPortMappings", "SrcDeviceId", "Port", "Disabled", "Version", "ResetLastSendAck", "NodeId", "Action", });
+              new java.lang.String[] { "Type", "SubType", "DeviceId", "SeqNum", "Msg", "Key", "Secret", "Users", "PortMapId", "IsSvcSide", "RemoteDevId", "Retries", "SvcPort", "MappedPort", "Data", "AgentPort", "ConnTs", "CtrlMsg", "GuestPortMappings", "HostPortMappings", "SrcDeviceId", "Port", "Disabled", "Version", "ResetLastSendAck", "NodeId", "Action", "AppName", "CredentialText", "PolicyText", });
           internal_static_PortMappingInfo_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_PortMappingInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_PortMappingInfo_descriptor,
-              new java.lang.String[] { "Port", "PortMapId", "Disabled", });
+              new java.lang.String[] { "Port", "PortMapId", "Disabled", "PolicyText", "AppName", "CredentialText", });
           return null;
         }
       };

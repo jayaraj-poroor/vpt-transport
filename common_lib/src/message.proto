@@ -29,6 +29,9 @@ message ShelloidMessage {
 	optional 			bool			resetLastSendAck = 26;
 	optional 			int64 			nodeId = 27;
 	optional 			string			action = 28;
+	optional 			string			appName = 29;
+	optional 			string			credential_text = 30;
+	optional 			string			policy_text = 31;
 }
 
 enum MessageTypes {
@@ -55,7 +58,10 @@ enum MessageTypes {
 }
 
 message PortMappingInfo {
-	required int32	port = 1;
-	required int64	portMapId = 2;
-	required bool 	disabled = 3;
+	required 	int32	port = 1;
+	required	int64	portMapId = 2;
+	required 	bool 	disabled = 3;
+	optional 	string	policy_text = 4;
+	optional 	string	appName = 5;
+	optional 	string	credential_text = 6;
 }

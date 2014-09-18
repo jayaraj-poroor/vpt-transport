@@ -217,7 +217,7 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
                 jedis = platform.getRedisConnection();
                 conn = platform.getDbConnection();
                 messenger.removeDevice(devId);
-                ArrayList<String> list = new ArrayList<>();
+                ArrayList<String> list = new ArrayList<String>();
                 list.add("*");
                 byte[] nodeStatus = getNodeStatusMsg(devId, MessageValues.D, list);
                 jedis.publish("nodeStatus:" + devId, HelperFunctions.toHexString(nodeStatus, 0, nodeStatus.length));
@@ -364,7 +364,7 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
         long portMapId = msg.getPortMapId();
         ArrayList<HashMap<String, Object>> list = Database.getResult(conn, "SELECT id, mapped_dev_id FROM port_maps WHERE svc_dev_id = ? AND id = ?", new Object[]{ch.attr(CONNECTION_MAPPING).get(), portMapId});
         if (list.size() > 0) {
-            Database.doUpdate(conn, "UPDATE port_maps SET svc_side_status = 'READY' WHERE id = ?", new Object[]{portMapId});
+            Database.doUpdate(conn, "UPDATE port_maps SET svc_side_status = 'READY', credential_text = ? WHERE id = ?", new Object[]{portMapId, msg.getCredentialText()});
             updatePortMapStatus(jedis, conn, portMapId, PORT_MAP_APP_SIDE_OPEN, -1);
             ShelloidMessage.Builder smsg = ShelloidMessage.newBuilder();
             smsg.setType(MessageTypes.START_LISTENING);
@@ -455,7 +455,7 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
                     shdMx.onAgentAuth(cm, devId, Configurations.SERVER_IP);
                 }
                 jedis.hset("deviceMap", devId + "", Configurations.SERVER_IP);
-                ArrayList<String> list = new ArrayList<>();
+                ArrayList<String> list = new ArrayList<String>();
                 list.add("*");
                 byte [] nodeStatusMessage = getNodeStatusMsg(devId, MessageValues.C, list);
                 jedis.publish("nodeStatus:" + devId, HelperFunctions.toHexString(nodeStatusMessage, 0, nodeStatusMessage.length));
@@ -498,12 +498,12 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     private void sendPortmapInfoToDeviceOnAuth(Jedis jedis, Connection conn, long devId, Channel ch) throws SQLException, ShelloidNonRetriableException {
-        ArrayList<HashMap<String, Object>> portMaps = Database.getResult(conn, "SELECT * FROM port_maps WHERE svc_dev_id = ? OR mapped_dev_id = ?", new Object[]{devId, devId});
+        ArrayList<HashMap<String, Object>> portMaps = Database.getResult(conn, "SELECT id, svc_dev_id, svc_port, mapped_port, disabled, credential_text, (SELECT policy_text FROM policies WHERE policy_id = access_policy_id) as access_policy_text, (SELECT app_name FROM applications WHERE app_id = (SELECT application_id FROM policies WHERE policy_id = access_policy_id)) as access_policy_app_name FROM port_maps WHERE svc_dev_id = ? OR mapped_dev_id = ?", new Object[]{devId, devId});
         ShelloidMessage.Builder msg = ShelloidMessage.newBuilder();
         msg.setType(MessageTypes.URGENT);
         msg.setSubType(MessageTypes.DEVICE_MAPPINGS);
-        ArrayList<PortMappingInfo> guestPortMaps = new ArrayList<>();
-        ArrayList<PortMappingInfo> hostPortMaps = new ArrayList<>();
+        ArrayList<PortMappingInfo> guestPortMaps = new ArrayList<PortMappingInfo>();
+        ArrayList<PortMappingInfo> hostPortMaps = new ArrayList<PortMappingInfo>();
         for (HashMap<String, Object> map : portMaps) {
             Long hostDevId = Long.parseLong(map.get("svc_dev_id").toString());
             PortMappingInfo.Builder info = PortMappingInfo.newBuilder();
@@ -511,6 +511,29 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
             info.setPortMapId(Long.parseLong(map.get("id").toString()));
             if (hostDevId == devId) {
                 info.setPort(Integer.parseInt(map.get("svc_port").toString()));
+                if (info.getDisabled()){
+                    if (map.get("credential_text") != null) {
+                        Object credText = map.get("credential_text");
+                        Object policyAppName = map.get("access_policy_app_name");
+                        if (credText != null){
+                            info.setCredentialText(credText.toString());
+                        }
+                        if(policyAppName != null){
+                            info.setAppName(policyAppName.toString());
+                        }
+                    }
+                } else {
+                    if (map.get("credential_text") == null) {
+                        Object policyText = map.get("access_policy_text");
+                        Object policyAppName = map.get("access_policy_app_name");
+                        if (policyText != null){
+                            info.setCredentialText(policyText.toString());
+                        }
+                        if(policyAppName != null){
+                            info.setAppName(policyAppName.toString());
+                        }
+                    }
+                }
                 hostPortMaps.add(info.build());
             } else {
                 info.setPort(Integer.parseInt(map.get("mapped_port").toString()));

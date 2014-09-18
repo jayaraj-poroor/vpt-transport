@@ -18,7 +18,7 @@ public class Database
     public static ArrayList<HashMap<String, Object>> getResult(Connection conn, String query, Object[] values) throws SQLException
     {
         /* TODO: implement database worker thread */
-        ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+        ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
         PreparedStatement st = conn.prepareStatement(query);
         for (int i = 0; i < values.length; i++)
         {
@@ -28,7 +28,7 @@ public class Database
         ResultSetMetaData metaData = rs.getMetaData();
         while (rs.next())
         {
-            HashMap<String, Object> map = new HashMap<>();
+            HashMap<String, Object> map = new HashMap<String, Object>();
             for (int i = 1; i <= metaData.getColumnCount(); i++)
             {
                 map.put(metaData.getColumnName(i), rs.getObject(i));

@@ -29,7 +29,7 @@ public class DeferredRedisTransaction
 
     public DeferredRedisTransaction()
     {
-        cmds = new ArrayList<>();
+        cmds = new ArrayList<RedisCommand>();
     }
 
     public void hset(String id, String seqNum, String data)
