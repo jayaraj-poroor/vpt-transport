@@ -25,7 +25,7 @@ public interface ShelloidMX {
     public void onAgentAuth(ConnectionMetadata cm, long devId, String serverIp) throws ShelloidNonRetriableException;
     public void onAgentDisconnect(ConnectionMetadata cm) throws ShelloidNonRetriableException;
     public void onClosePortMap(Connection conn, long portMapId) throws ShelloidNonRetriableException;
-    public void onOpenPortMap(Connection conn, long portMapId) throws ShelloidNonRetriableException;
+    public void onOpenPortMap(Connection conn, long portMapId, ShelloidMessage msg) throws ShelloidNonRetriableException;
     public void onAgentTunnelMsg (ConnectionMetadata cm, ConnectionMetadata remoteCm, long remoteDevId, ShelloidMessage msg, int retries, Jedis jedis) throws ShelloidNonRetriableException;
     public void onGeneratedReliableMsg(ConnectionMetadata cm, ConnectionMetadata remoteCm,  long deviceId, ShelloidMessage msg, Jedis jedis, DeferredRedisTransaction tx) throws ShelloidNonRetriableException;
 }

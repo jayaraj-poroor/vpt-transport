@@ -280,14 +280,14 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
                             switch (type) {
                                 case PORT_OPENED: {
                                     if (shdMx != null) {
-                                        shdMx.onOpenPortMap(conn, portMapId);
+                                        shdMx.onOpenPortMap(conn, portMapId, msg);
                                     }
                                     handlePortOpenedMethod(msg, conn, ch, jedis, tx, cm);
                                     break;
                                 }
                                 case LISTENING_STARTED: {
                                     if (shdMx != null) {
-                                        shdMx.onOpenPortMap(conn, portMapId);
+                                        shdMx.onOpenPortMap(conn, portMapId, null);
                                     }
                                     handleListeningStartedMethod(msg, conn, ch, jedis);
                                     break;
@@ -364,7 +364,7 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
         long portMapId = msg.getPortMapId();
         ArrayList<HashMap<String, Object>> list = Database.getResult(conn, "SELECT id, mapped_dev_id FROM port_maps WHERE svc_dev_id = ? AND id = ?", new Object[]{ch.attr(CONNECTION_MAPPING).get(), portMapId});
         if (list.size() > 0) {
-            Database.doUpdate(conn, "UPDATE port_maps SET svc_side_status = 'READY', credential_text = ? WHERE id = ?", new Object[]{portMapId, msg.getCredentialText()});
+            Database.doUpdate(conn, "UPDATE port_maps SET svc_side_status = 'READY' WHERE id = ?", new Object[]{portMapId});
             updatePortMapStatus(jedis, conn, portMapId, PORT_MAP_APP_SIDE_OPEN, -1);
             ShelloidMessage.Builder smsg = ShelloidMessage.newBuilder();
             smsg.setType(MessageTypes.START_LISTENING);
@@ -442,7 +442,13 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
         Jedis jedis = null;
         try {
             Long devId = ch.attr(CONNECTION_MAPPING).get();
-            double ver = Double.parseDouble(version.substring(0, 2));
+            double ver;
+            if (version.startsWith("dev")){
+                ver = Configurations.MIN_COMPATIBLE_AGENT_VERSION;
+                Platform.shelloidLogger.warn("Connecting with development version of the device.");
+            } else {
+                ver = Double.parseDouble(version.substring(0, 2));
+            }
             if (ver < Configurations.MIN_COMPATIBLE_AGENT_VERSION){
                 throw new ShelloidNonRetriableException("Device with ID " + devId + " is trying to connect with incompatible version ("+version+")");
             } else {
@@ -527,7 +533,7 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
                         Object policyText = map.get("access_policy_text");
                         Object policyAppName = map.get("access_policy_app_name");
                         if (policyText != null){
-                            info.setCredentialText(policyText.toString());
+                            info.setPolicyText(policyText.toString());
                         }
                         if(policyAppName != null){
                             info.setAppName(policyAppName.toString());
