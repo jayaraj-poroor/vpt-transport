@@ -504,7 +504,7 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     private void sendPortmapInfoToDeviceOnAuth(Jedis jedis, Connection conn, long devId, Channel ch) throws SQLException, ShelloidNonRetriableException {
-        ArrayList<HashMap<String, Object>> portMaps = Database.getResult(conn, "SELECT id, svc_dev_id, svc_port, mapped_port, disabled, credential_text, (SELECT policy_text FROM policies WHERE policy_id = access_policy_id) as access_policy_text, (SELECT app_name FROM applications WHERE app_id = (SELECT application_id FROM policies WHERE policy_id = access_policy_id)) as access_policy_app_name FROM port_maps WHERE svc_dev_id = ? OR mapped_dev_id = ?", new Object[]{devId, devId});
+        ArrayList<HashMap<String, Object>> portMaps = Database.getResult(conn, "SELECT id, svc_dev_id, svc_host, svc_port, mapped_port, disabled, credential_text, (SELECT policy_text FROM policies WHERE policy_id = access_policy_id) as access_policy_text, (SELECT app_name FROM applications WHERE app_id = (SELECT application_id FROM policies WHERE policy_id = access_policy_id)) as access_policy_app_name FROM port_maps WHERE svc_dev_id = ? OR mapped_dev_id = ?", new Object[]{devId, devId});
         ShelloidMessage.Builder msg = ShelloidMessage.newBuilder();
         msg.setType(MessageTypes.URGENT);
         msg.setSubType(MessageTypes.DEVICE_MAPPINGS);
@@ -517,6 +517,7 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
             info.setPortMapId(Long.parseLong(map.get("id").toString()));
             if (hostDevId == devId) {
                 info.setPort(Integer.parseInt(map.get("svc_port").toString()));
+                info.setSvcHost(map.get("svc_host").toString());
                 if (info.getDisabled()){
                     if (map.get("credential_text") != null) {
                         Object credText = map.get("credential_text");
@@ -529,7 +530,7 @@ public class VPTServerHandler extends SimpleChannelInboundHandler<Object> {
                         }
                     }
                 } else {
-                    if (map.get("credential_text") == null) {
+                    if (map.get("credential_text") == null || map.get("credential_text").toString().isEmpty()) {
                         Object policyText = map.get("access_policy_text");
                         Object policyAppName = map.get("access_policy_app_name");
                         if (policyText != null){

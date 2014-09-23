@@ -639,6 +639,21 @@ public final class ShelloidMessageModel {
      */
     com.google.protobuf.ByteString
         getPolicyTextBytes();
+
+    // optional string svcHost = 32;
+    /**
+     * <code>optional string svcHost = 32;</code>
+     */
+    boolean hasSvcHost();
+    /**
+     * <code>optional string svcHost = 32;</code>
+     */
+    java.lang.String getSvcHost();
+    /**
+     * <code>optional string svcHost = 32;</code>
+     */
+    com.google.protobuf.ByteString
+        getSvcHostBytes();
   }
   /**
    * Protobuf type {@code ShelloidMessage}
@@ -860,6 +875,11 @@ public final class ShelloidMessageModel {
             case 250: {
               bitField0_ |= 0x04000000;
               policyText_ = input.readBytes();
+              break;
+            }
+            case 258: {
+              bitField0_ |= 0x08000000;
+              svcHost_ = input.readBytes();
               break;
             }
           }
@@ -1688,6 +1708,49 @@ public final class ShelloidMessageModel {
       }
     }
 
+    // optional string svcHost = 32;
+    public static final int SVCHOST_FIELD_NUMBER = 32;
+    private java.lang.Object svcHost_;
+    /**
+     * <code>optional string svcHost = 32;</code>
+     */
+    public boolean hasSvcHost() {
+      return ((bitField0_ & 0x08000000) == 0x08000000);
+    }
+    /**
+     * <code>optional string svcHost = 32;</code>
+     */
+    public java.lang.String getSvcHost() {
+      java.lang.Object ref = svcHost_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          svcHost_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string svcHost = 32;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSvcHostBytes() {
+      java.lang.Object ref = svcHost_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        svcHost_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       type_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.OTHER_MESSAGES;
       subType_ = org.shelloid.common.messages.ShelloidMessageModel.MessageTypes.OTHER_MESSAGES;
@@ -1719,6 +1782,7 @@ public final class ShelloidMessageModel {
       appName_ = "";
       credentialText_ = "";
       policyText_ = "";
+      svcHost_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1837,6 +1901,9 @@ public final class ShelloidMessageModel {
       }
       if (((bitField0_ & 0x04000000) == 0x04000000)) {
         output.writeBytes(31, getPolicyTextBytes());
+      }
+      if (((bitField0_ & 0x08000000) == 0x08000000)) {
+        output.writeBytes(32, getSvcHostBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -1971,6 +2038,10 @@ public final class ShelloidMessageModel {
       if (((bitField0_ & 0x04000000) == 0x04000000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(31, getPolicyTextBytes());
+      }
+      if (((bitField0_ & 0x08000000) == 0x08000000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(32, getSvcHostBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2158,6 +2229,8 @@ public final class ShelloidMessageModel {
         bitField0_ = (bitField0_ & ~0x10000000);
         policyText_ = "";
         bitField0_ = (bitField0_ & ~0x20000000);
+        svcHost_ = "";
+        bitField0_ = (bitField0_ & ~0x40000000);
         return this;
       }
 
@@ -2318,6 +2391,10 @@ public final class ShelloidMessageModel {
           to_bitField0_ |= 0x04000000;
         }
         result.policyText_ = policyText_;
+        if (((from_bitField0_ & 0x40000000) == 0x40000000)) {
+          to_bitField0_ |= 0x08000000;
+        }
+        result.svcHost_ = svcHost_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -2493,6 +2570,11 @@ public final class ShelloidMessageModel {
         if (other.hasPolicyText()) {
           bitField0_ |= 0x20000000;
           policyText_ = other.policyText_;
+          onChanged();
+        }
+        if (other.hasSvcHost()) {
+          bitField0_ |= 0x40000000;
+          svcHost_ = other.svcHost_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -4380,6 +4462,80 @@ public final class ShelloidMessageModel {
         return this;
       }
 
+      // optional string svcHost = 32;
+      private java.lang.Object svcHost_ = "";
+      /**
+       * <code>optional string svcHost = 32;</code>
+       */
+      public boolean hasSvcHost() {
+        return ((bitField0_ & 0x40000000) == 0x40000000);
+      }
+      /**
+       * <code>optional string svcHost = 32;</code>
+       */
+      public java.lang.String getSvcHost() {
+        java.lang.Object ref = svcHost_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          svcHost_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string svcHost = 32;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSvcHostBytes() {
+        java.lang.Object ref = svcHost_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          svcHost_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string svcHost = 32;</code>
+       */
+      public Builder setSvcHost(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x40000000;
+        svcHost_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string svcHost = 32;</code>
+       */
+      public Builder clearSvcHost() {
+        bitField0_ = (bitField0_ & ~0x40000000);
+        svcHost_ = getDefaultInstance().getSvcHost();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string svcHost = 32;</code>
+       */
+      public Builder setSvcHostBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x40000000;
+        svcHost_ = value;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:ShelloidMessage)
     }
 
@@ -4468,6 +4624,21 @@ public final class ShelloidMessageModel {
      */
     com.google.protobuf.ByteString
         getCredentialTextBytes();
+
+    // optional string svcHost = 7;
+    /**
+     * <code>optional string svcHost = 7;</code>
+     */
+    boolean hasSvcHost();
+    /**
+     * <code>optional string svcHost = 7;</code>
+     */
+    java.lang.String getSvcHost();
+    /**
+     * <code>optional string svcHost = 7;</code>
+     */
+    com.google.protobuf.ByteString
+        getSvcHostBytes();
   }
   /**
    * Protobuf type {@code PortMappingInfo}
@@ -4548,6 +4719,11 @@ public final class ShelloidMessageModel {
             case 50: {
               bitField0_ |= 0x00000020;
               credentialText_ = input.readBytes();
+              break;
+            }
+            case 58: {
+              bitField0_ |= 0x00000040;
+              svcHost_ = input.readBytes();
               break;
             }
           }
@@ -4767,6 +4943,49 @@ public final class ShelloidMessageModel {
       }
     }
 
+    // optional string svcHost = 7;
+    public static final int SVCHOST_FIELD_NUMBER = 7;
+    private java.lang.Object svcHost_;
+    /**
+     * <code>optional string svcHost = 7;</code>
+     */
+    public boolean hasSvcHost() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>optional string svcHost = 7;</code>
+     */
+    public java.lang.String getSvcHost() {
+      java.lang.Object ref = svcHost_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          svcHost_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string svcHost = 7;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSvcHostBytes() {
+      java.lang.Object ref = svcHost_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        svcHost_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       port_ = 0;
       portMapId_ = 0L;
@@ -4774,6 +4993,7 @@ public final class ShelloidMessageModel {
       policyText_ = "";
       appName_ = "";
       credentialText_ = "";
+      svcHost_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -4817,6 +5037,9 @@ public final class ShelloidMessageModel {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         output.writeBytes(6, getCredentialTextBytes());
       }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeBytes(7, getSvcHostBytes());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -4849,6 +5072,10 @@ public final class ShelloidMessageModel {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(6, getCredentialTextBytes());
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(7, getSvcHostBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4978,6 +5205,8 @@ public final class ShelloidMessageModel {
         bitField0_ = (bitField0_ & ~0x00000010);
         credentialText_ = "";
         bitField0_ = (bitField0_ & ~0x00000020);
+        svcHost_ = "";
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
 
@@ -5030,6 +5259,10 @@ public final class ShelloidMessageModel {
           to_bitField0_ |= 0x00000020;
         }
         result.credentialText_ = credentialText_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.svcHost_ = svcHost_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -5068,6 +5301,11 @@ public final class ShelloidMessageModel {
         if (other.hasCredentialText()) {
           bitField0_ |= 0x00000020;
           credentialText_ = other.credentialText_;
+          onChanged();
+        }
+        if (other.hasSvcHost()) {
+          bitField0_ |= 0x00000040;
+          svcHost_ = other.svcHost_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -5430,6 +5668,80 @@ public final class ShelloidMessageModel {
         return this;
       }
 
+      // optional string svcHost = 7;
+      private java.lang.Object svcHost_ = "";
+      /**
+       * <code>optional string svcHost = 7;</code>
+       */
+      public boolean hasSvcHost() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>optional string svcHost = 7;</code>
+       */
+      public java.lang.String getSvcHost() {
+        java.lang.Object ref = svcHost_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          svcHost_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string svcHost = 7;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSvcHostBytes() {
+        java.lang.Object ref = svcHost_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          svcHost_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string svcHost = 7;</code>
+       */
+      public Builder setSvcHost(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000040;
+        svcHost_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string svcHost = 7;</code>
+       */
+      public Builder clearSvcHost() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        svcHost_ = getDefaultInstance().getSvcHost();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string svcHost = 7;</code>
+       */
+      public Builder setSvcHostBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000040;
+        svcHost_ = value;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:PortMappingInfo)
     }
 
@@ -5460,7 +5772,7 @@ public final class ShelloidMessageModel {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rmessage.proto\"\365\004\n\017ShelloidMessage\022\033\n\004t" +
+      "\n\rmessage.proto\"\206\005\n\017ShelloidMessage\022\033\n\004t" +
       "ype\030\001 \002(\0162\r.MessageTypes\022\036\n\007subType\030\002 \001(" +
       "\0162\r.MessageTypes\022\021\n\tdevice_id\030\003 \001(\003\022\016\n\006s" +
       "eqNum\030\004 \001(\003\022\013\n\003msg\030\005 \001(\t\022\013\n\003key\030\006 \001(\t\022\016\n" +
@@ -5476,20 +5788,21 @@ public final class ShelloidMessageModel {
       "\030\031 \001(\t\022\030\n\020resetLastSendAck\030\032 \001(\010\022\016\n\006node" +
       "Id\030\033 \001(\003\022\016\n\006action\030\034 \001(\t\022\017\n\007appName\030\035 \001(" +
       "\t\022\027\n\017credential_text\030\036 \001(\t\022\023\n\013policy_tex" +
-      "t\030\037 \001(\t\"\203\001\n\017PortMappingInfo\022\014\n\004port\030\001 \002(" +
-      "\005\022\021\n\tportMapId\030\002 \002(\003\022\020\n\010disabled\030\003 \002(\010\022\023" +
-      "\n\013policy_text\030\004 \001(\t\022\017\n\007appName\030\005 \001(\t\022\027\n\017" +
-      "credential_text\030\006 \001(\t*\331\002\n\014MessageTypes\022\022",
-      "\n\016OTHER_MESSAGES\020\000\022\013\n\007NEW_MSG\020\001\022\007\n\003ACK\020\002" +
-      "\022\t\n\005ERROR\020\003\022\t\n\005NAUTH\020\004\022\013\n\007NODEMSG\020\005\022\n\n\006U" +
-      "RGENT\020\010\022\n\n\006TUNNEL\020\022\022\022\n\016TUNNEL_FORWARD\020\023\022" +
-      "\030\n\024TUNNEL_FORWARD_ERROR\020\024\022\023\n\017START_LISTE" +
-      "NING\020\025\022\r\n\tOPEN_PORT\020\026\022\016\n\nCLOSE_PORT\020\027\022\017\n" +
-      "\013STOP_LISTEN\020\030\022\017\n\013PORT_OPENED\020\031\022\025\n\021LISTE" +
-      "NING_STARTED\020\032\022\025\n\021LISTENING_STOPPED\020\033\022\017\n" +
-      "\013PORT_CLOSED\020\034\022\023\n\017DEVICE_MAPPINGS\020\035\022\014\n\010N" +
-      "O_ROUTE\020\036B4\n\034org.shelloid.common.message" +
-      "sB\024ShelloidMessageModel"
+      "t\030\037 \001(\t\022\017\n\007svcHost\030  \001(\t\"\224\001\n\017PortMapping" +
+      "Info\022\014\n\004port\030\001 \002(\005\022\021\n\tportMapId\030\002 \002(\003\022\020\n" +
+      "\010disabled\030\003 \002(\010\022\023\n\013policy_text\030\004 \001(\t\022\017\n\007" +
+      "appName\030\005 \001(\t\022\027\n\017credential_text\030\006 \001(\t\022\017",
+      "\n\007svcHost\030\007 \001(\t*\331\002\n\014MessageTypes\022\022\n\016OTHE" +
+      "R_MESSAGES\020\000\022\013\n\007NEW_MSG\020\001\022\007\n\003ACK\020\002\022\t\n\005ER" +
+      "ROR\020\003\022\t\n\005NAUTH\020\004\022\013\n\007NODEMSG\020\005\022\n\n\006URGENT\020" +
+      "\010\022\n\n\006TUNNEL\020\022\022\022\n\016TUNNEL_FORWARD\020\023\022\030\n\024TUN" +
+      "NEL_FORWARD_ERROR\020\024\022\023\n\017START_LISTENING\020\025" +
+      "\022\r\n\tOPEN_PORT\020\026\022\016\n\nCLOSE_PORT\020\027\022\017\n\013STOP_" +
+      "LISTEN\020\030\022\017\n\013PORT_OPENED\020\031\022\025\n\021LISTENING_S" +
+      "TARTED\020\032\022\025\n\021LISTENING_STOPPED\020\033\022\017\n\013PORT_" +
+      "CLOSED\020\034\022\023\n\017DEVICE_MAPPINGS\020\035\022\014\n\010NO_ROUT" +
+      "E\020\036B4\n\034org.shelloid.common.messagesB\024She",
+      "lloidMessageModel"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -5501,13 +5814,13 @@ public final class ShelloidMessageModel {
           internal_static_ShelloidMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_ShelloidMessage_descriptor,
-              new java.lang.String[] { "Type", "SubType", "DeviceId", "SeqNum", "Msg", "Key", "Secret", "Users", "PortMapId", "IsSvcSide", "RemoteDevId", "Retries", "SvcPort", "MappedPort", "Data", "AgentPort", "ConnTs", "CtrlMsg", "GuestPortMappings", "HostPortMappings", "SrcDeviceId", "Port", "Disabled", "Version", "ResetLastSendAck", "NodeId", "Action", "AppName", "CredentialText", "PolicyText", });
+              new java.lang.String[] { "Type", "SubType", "DeviceId", "SeqNum", "Msg", "Key", "Secret", "Users", "PortMapId", "IsSvcSide", "RemoteDevId", "Retries", "SvcPort", "MappedPort", "Data", "AgentPort", "ConnTs", "CtrlMsg", "GuestPortMappings", "HostPortMappings", "SrcDeviceId", "Port", "Disabled", "Version", "ResetLastSendAck", "NodeId", "Action", "AppName", "CredentialText", "PolicyText", "SvcHost", });
           internal_static_PortMappingInfo_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_PortMappingInfo_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_PortMappingInfo_descriptor,
-              new java.lang.String[] { "Port", "PortMapId", "Disabled", "PolicyText", "AppName", "CredentialText", });
+              new java.lang.String[] { "Port", "PortMapId", "Disabled", "PolicyText", "AppName", "CredentialText", "SvcHost", });
           return null;
         }
       };

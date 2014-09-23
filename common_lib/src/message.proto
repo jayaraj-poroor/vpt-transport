@@ -32,6 +32,7 @@ message ShelloidMessage {
 	optional 			string			appName = 29;
 	optional 			string			credential_text = 30;
 	optional 			string			policy_text = 31;
+	optional 			string			svcHost = 32;
 }
 
 enum MessageTypes {
@@ -64,4 +65,5 @@ message PortMappingInfo {
 	optional 	string	policy_text = 4;
 	optional 	string	appName = 5;
 	optional 	string	credential_text = 6;
+	optional 	string	svcHost = 7;
 }
